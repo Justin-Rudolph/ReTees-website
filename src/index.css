@@ -5,55 +5,390 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --radius: 0.5rem;
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-sans:    'Plus Jakarta Sans', system-ui, sans-serif;
+
+  /* ── ReTees brand palette ── */
+  --color-rt-white:       #FAFAF6;
+  --color-rt-cream:       #F5F0E8;
+  --color-rt-linen:       #EAE1D0;
+  --color-rt-green:       #1B3D2C;
+  --color-rt-green-mid:   #2F6145;
+  --color-rt-green-pale:  #EDF4F0;
+  --color-rt-gold:        #A87D2E;
+  --color-rt-ink:         #1A1A1A;
+  --color-rt-dim:         #5E6560;
+  --color-rt-muted:       #9B9B9B;
+
+  /* ── Shadcn system tokens (light theme) ── */
+  --background:                  #FAFAF6;
+  --foreground:                  #1A1A1A;
+  --card:                        #FFFFFF;
+  --card-foreground:             #1A1A1A;
+  --popover:                     #FFFFFF;
+  --popover-foreground:          #1A1A1A;
+  --primary:                     #1B3D2C;
+  --primary-foreground:          #FAFAF6;
+  --secondary:                   #F5F0E8;
+  --secondary-foreground:        #1A1A1A;
+  --muted:                       #F5F0E8;
+  --muted-foreground:            #5E6560;
+  --accent:                      #EDF4F0;
+  --accent-foreground:           #1B3D2C;
+  --destructive:                 oklch(0.577 0.245 27.325);
+  --border:                      rgba(27, 61, 44, 0.12);
+  --input:                       rgba(27, 61, 44, 0.12);
+  --ring:                        #1B3D2C;
+  --radius:                      0.375rem;
+  --color-background:            var(--background);
+  --color-foreground:            var(--foreground);
+  --color-card:                  var(--card);
+  --color-card-foreground:       var(--card-foreground);
+  --color-popover:               var(--popover);
+  --color-popover-foreground:    var(--popover-foreground);
+  --color-primary:               var(--primary);
+  --color-primary-foreground:    var(--primary-foreground);
+  --color-secondary:             var(--secondary);
+  --color-secondary-foreground:  var(--secondary-foreground);
+  --color-muted:                 var(--muted);
+  --color-muted-foreground:      var(--muted-foreground);
+  --color-accent:                var(--accent);
+  --color-accent-foreground:     var(--accent-foreground);
+  --color-destructive:           var(--destructive);
+  --color-border:                var(--border);
+  --color-input:                 var(--input);
+  --color-ring:                  var(--ring);
+  --radius-sm:  calc(var(--radius) * 0.667);
+  --radius-md:  var(--radius);
+  --radius-lg:  calc(var(--radius) * 1.6);
+  --radius-xl:  calc(var(--radius) * 2.4);
+  --radius-2xl: calc(var(--radius) * 3.2);
 }
 
 @layer base {
   * { @apply border-border outline-ring/50; }
+  html { scroll-behavior: smooth; }
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+}
+
+/* ── Scroll-reveal ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.10s; }
+.reveal-delay-2 { transition-delay: 0.20s; }
+.reveal-delay-3 { transition-delay: 0.30s; }
+.reveal-delay-4 { transition-delay: 0.40s; }
+
+/* ── Artwork placeholder backgrounds ──
+   TODO: Replace each .art-bg-* background with a real <img> tag.
+   Swap the CSS class for an <img src="/images/artwork-N.jpg" /> element. */
+.art-bg-1 { background: linear-gradient(135deg, #1B3D2C 0%, #2F6145 55%, #4A8C65 100%); }
+.art-bg-2 { background: linear-gradient(150deg, #F5F0E8 0%, #D4C9B0 60%, #BFB090 100%); }
+.art-bg-3 { background: linear-gradient(120deg, #A87D2E 0%, #C8A050 50%, #DDB870 100%); }
+.art-bg-4 { background: linear-gradient(160deg, #0A1F15 0%, #1B3D2C 55%, #2F6145 100%); }
+.art-bg-5 { background: linear-gradient(135deg, #EDF4F0 0%, #C0D8CA 60%, #9ABFAD 100%); }
+.art-bg-6 { background: linear-gradient(165deg, #2C3E35 0%, #1B3D2C 50%, #3A6B50 100%); }
+
+/* TODO: Replace .hero-art-bg with a real hero artwork image */
+.hero-art-bg {
+  background:
+    radial-gradient(circle at 30% 70%, rgba(168, 125, 46, 0.35) 0%, transparent 45%),
+    radial-gradient(circle at 75% 25%, rgba(47, 97, 69, 0.45) 0%, transparent 40%),
+    linear-gradient(145deg, #1B3D2C 0%, #2F6145 50%, #1A3825 100%);
+}
+
+/* TODO: Replace .tournament-bg with a real Heritage Isles golf course image */
+.tournament-bg {
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(47, 97, 69, 0.7) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(168, 125, 46, 0.4) 0%, transparent 45%),
+    linear-gradient(160deg, #0A1F15 0%, #1B3D2C 50%, #0F2A1E 100%);
+}
+
+/* TODO: Replace .hat-placeholder-bg with a real product photo */
+.hat-placeholder-bg {
+  background:
+    radial-gradient(circle at 50% 60%, rgba(27, 61, 44, 0.15) 0%, transparent 60%),
+    linear-gradient(180deg, #F5F0E8 0%, #EAE1D0 100%);
+}
+
+/* ── Carousel ── */
+.carousel-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  gap: 1.125rem;
+  padding-bottom: 1rem;
+}
+.carousel-track::-webkit-scrollbar { display: none; }
+
+.carousel-card {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.carousel-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 56px rgba(27, 61, 44, 0.18);
+}
+
+/* "View" overlay + image scale on hover */
+.artwork-card:hover img {
+  transform: scale(1.04);
+}
+.artwork-card:hover > div > div:last-child {
+  opacity: 1 !important;
+}
+
+/* ── Form controls ── */
+.rt-input {
+  width: 100%;
+  padding: 0.6875rem 1rem;
+  border: 1.5px solid rgba(27, 61, 44, 0.16);
+  border-radius: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--foreground);
+  background: #FFFFFF;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.rt-input:focus {
+  border-color: #1B3D2C;
+  box-shadow: 0 0 0 3px rgba(27, 61, 44, 0.10);
+}
+.rt-input::placeholder { color: #9B9B9B; }
+.rt-input.error { border-color: #dc2626; }
+
+.rt-select {
+  width: 100%;
+  padding: 0.6875rem 2.5rem 0.6875rem 1rem;
+  border: 1.5px solid rgba(27, 61, 44, 0.16);
+  border-radius: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--foreground);
+  background: #FFFFFF url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235E6560' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 1rem center;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.rt-select:focus {
+  border-color: #1B3D2C;
+  box-shadow: 0 0 0 3px rgba(27, 61, 44, 0.10);
+}
+
+.rt-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #5E6560;
+  margin-bottom: 0.375rem;
+}
+
+.rt-error {
+  font-size: 0.75rem;
+  color: #dc2626;
+  margin-top: 0.25rem;
+}
+
+/* ── Button left-to-right sheen sweep on hover ── */
+.btn-sweep {
+  position: relative;
+  overflow: hidden;
+}
+.btn-sweep::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.16) 50%,
+    transparent 100%
+  );
+  transform: translateX(-110%);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+.btn-sweep:hover::after {
+  transform: translateX(110%);
+}
+.btn-sweep:disabled::after {
+  display: none;
+}
+
+/* Dark variant — for light/white-background buttons */
+.btn-sweep-dark {
+  position: relative;
+  overflow: hidden;
+}
+.btn-sweep-dark::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(27, 61, 44, 0.10) 50%,
+    transparent 100%
+  );
+  transform: translateX(-110%);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+.btn-sweep-dark:hover::after {
+  transform: translateX(110%);
+}
+.btn-sweep-dark:disabled::after {
+  display: none;
+}
+
+/* ── Typewriter cursor blink ── */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.stat-cursor {
+  display: inline-block;
+  font-weight: 300;
+  animation: cursor-blink 0.65s step-end infinite;
+}
+
+/* ── Infinite artwork marquee ── */
+@keyframes marquee-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+.marquee-container {
+  /* overflow-x: clip (not hidden) so vertical box-shadows bleed out for the hover glow */
+  overflow-x: clip;
+  overflow-y: visible;
+  padding: 24px 0;        /* vertical breathing room for the glow */
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+}
+
+.marquee-track {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  animation: marquee-scroll 65s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Artwork card hover: wrapper drives scale/opacity + radial glow ── */
+.artwork-card-wrapper {
+  position: relative;
+  z-index: 0;
+  transition:
+    transform   0.38s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity     0.32s ease;
+}
+
+/* Radial glow — lives behind the card, escapes the card's overflow:hidden */
+.artwork-card-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -32px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(27, 61, 44, 0.50) 0%,
+    rgba(27, 61, 44, 0.18) 42%,
+    transparent 68%
+  );
+  filter: blur(20px);
+  opacity: 0;
+  z-index: -1;
+  pointer-events: none;
+  transition: opacity 0.40s ease;
+}
+
+/* When any card in the track is hovered, dim and shrink the rest */
+.marquee-track:hover .artwork-card-wrapper {
+  transform: scale(0.94);
+  opacity: 0.68;
+}
+
+/* The hovered card pops forward */
+.marquee-track:hover .artwork-card-wrapper:hover {
+  transform: scale(1.07) translateY(-8px);
+  opacity: 1;
+}
+
+/* Activate the radial glow on hover */
+.marquee-track:hover .artwork-card-wrapper:hover::before {
+  opacity: 1;
+}
+
+/* ── HubSpot embed ── */
+.hs-form-frame iframe {
+  width: 100% !important;
+  border: none !important;
+  display: block;
+}
+
+/* HubSpot skeleton shimmer — warm brand tones */
+@keyframes hs-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.hs-skeleton {
+  border-radius: 0.5rem;
+  background: linear-gradient(
+    90deg,
+    #EDE5D8 0%,
+    #F7F1E8 45%,
+    #EDE5D8 100%
+  );
+  background-size: 300% 100%;
+  animation: hs-shimmer 1.8s ease-in-out infinite;
+}
+
+/* ── Section label ── */
+.section-label {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #1B3D2C;
 }

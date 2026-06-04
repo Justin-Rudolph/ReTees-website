@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://retees.com/sitemap.xml
