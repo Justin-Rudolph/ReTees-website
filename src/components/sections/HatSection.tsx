@@ -1,7 +1,7 @@
 import { ExternalLink, ChevronRight } from 'lucide-react';
 import { useInView } from '@/hooks/useInView';
 
-const HAT_PURCHASE_URL = 'https://connect.intuit.com/pay/ReteesLlc/scs-v1-a2aa116aa0c84b94991b4fc0b465b0f024493dede0f04ba48f34919e3bf17f0c8780a44e0dff427fab4e337724d71121?locale=EN_US&cta=copylistmultilink';
+const HAT_PURCHASE_URL = 'https://connect.intuit.com/pay/ReteesLlc/scs-v1-d900406186ca40bfab39bb3d57a21fabe05a5b0106b0436ab433b4a47836fe778d2583aa8f49451880d987ed13b3e815?locale=EN_US&cta=saveandcopylink';
 
 export default function HatSection() {
   const { ref, inView } = useInView();
