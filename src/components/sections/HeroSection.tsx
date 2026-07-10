@@ -181,7 +181,7 @@ export default function HeroSection({ onOpenInquiry }: HeroSectionProps) {
             }}
           >
             Where{' '}
-            <em style={{ color: '#DDB870', fontStyle: 'italic' }}>Recycled</em>
+            <em style={{ color: '#DDB870', fontStyle: 'italic' }}>Broken</em>
             <br />
             Tees Become{' '}
             <span style={{ color: '#DDB870' }}>Art.</span>

@@ -51,6 +51,7 @@ export default function Header({ onOpenInquiry }: HeaderProps) {
             href="#"
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
             aria-label="ReTees home"
+            className="min-w-0 mr-3"
           >
             <div
               className="rounded-lg px-2.5 py-1.5 transition-opacity hover:opacity-90"
@@ -59,12 +60,14 @@ export default function Header({ onOpenInquiry }: HeaderProps) {
                 boxShadow: '0 1px 6px rgba(0,0,0,0.12)',
                 display: 'inline-flex',
                 alignItems: 'center',
+                maxWidth: '100%',
               }}
             >
+              {/* max constraints + auto dimensions shrink the logo proportionally when space is tight */}
               <img
                 src="/images/logo.PNG"
                 alt="ReTees"
-                style={{ height: '44px', width: 'auto', display: 'block' }}
+                style={{ maxHeight: '44px', maxWidth: '100%', width: 'auto', height: 'auto', display: 'block' }}
               />
             </div>
           </a>
@@ -84,7 +87,7 @@ export default function Header({ onOpenInquiry }: HeaderProps) {
             ))}
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
             {/* Desktop CTA */}
             <button
               onClick={onOpenInquiry}
@@ -101,6 +104,30 @@ export default function Header({ onOpenInquiry }: HeaderProps) {
             >
               Custom Piece
             </button>
+
+            {/* Mobile quick links */}
+            {[
+              { label: 'Tournament', href: '#tournament' },
+              { label: 'Sponsors',   href: '#sponsors'   },
+            ].map(link => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => scrollTo(e, link.href)}
+                className="lg:hidden whitespace-nowrap text-xs font-medium rounded-full px-3 py-1.5 transition-all duration-200 hover:opacity-90 active:scale-95"
+                style={scrolled ? {
+                  backgroundColor: '#1B3D2C',
+                  color: '#FFFFFF',
+                } : {
+                  backgroundColor: 'rgba(255,255,255,0.15)',
+                  color: '#FFFFFF',
+                  border: '1px solid rgba(255,255,255,0.35)',
+                  backdropFilter: 'blur(8px)',
+                }}
+              >
+                {link.label}
+              </a>
+            ))}
 
             {/* Mobile hamburger */}
             <button

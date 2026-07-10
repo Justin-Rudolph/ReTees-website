@@ -9,12 +9,12 @@ const ARTWORKS = [
     title: 'Bob Does Sports',
   },
   {
-    src:   '/images/art1.webp',
+    src:   '/images/art1.jpg',
     alt:   'American flag made from recycled golf tees — red, white, and blue tees arranged in the stars and stripes pattern in a matted frame',
     title: 'American Flag',
   },
   {
-    src:   '/images/art2.webp',
+    src:   '/images/art2.jpg',
     alt:   'Florida Gators logo made from recycled golf tees — orange and blue tees forming the interlocking UF in a framed display',
     title: 'Florida Gators',
   },
@@ -34,7 +34,7 @@ const ARTWORKS = [
     title: 'Florida Seminoles',
   },
   {
-    src:   '/images/art6.webp',
+    src:   '/images/art6.jpg',
     alt:   'NC State Wolfpack logo made from recycled golf tees — red, black, and white tees forming the Wolfpack insignia',
     title: 'NC State',
   },
@@ -82,6 +82,11 @@ const ARTWORKS = [
     src:   '/images/art15.webp',
     alt:   'Miami Ohio RedHawks logo made from recycled golf tees — red and white tees forming the RedHawks insignia in a framed display',
     title: 'Miami Ohio',
+  },
+  {
+    src:   '/images/art16.jpg',
+    alt:   'Pelican XC logo made from recycled golf tees — black and blue tees forming a pelican silhouette with script lettering in a framed display',
+    title: 'Pelican XC',
   },
 ];
 
