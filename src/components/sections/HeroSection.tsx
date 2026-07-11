@@ -84,9 +84,9 @@ export default function HeroSection({ onOpenInquiry }: HeroSectionProps) {
         }}
       >
         <img
-          src="/images/hero_image.webp"
+          src="/images/hero_image2.jpeg"
           alt="ReTees founder standing at a recycling facility with a golf club, embodying the brand's sustainability mission"
-          className="absolute inset-0 w-full h-full object-cover object-center lg:object-top"
+          className="absolute inset-0 w-full h-full object-cover object-[center_22%] lg:object-top"
           fetchPriority="high"
         />
 

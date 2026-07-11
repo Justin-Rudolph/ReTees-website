@@ -1,5 +1,74 @@
+import { useState, useEffect } from 'react';
 import { MapPin, Calendar, Users, Trophy, ChevronRight, Phone, Mail } from 'lucide-react';
 import { useInView } from '@/hooks/useInView';
+
+// Sat, Sept 26, 2026 · 7:00 AM Eastern (Tampa, FL — EDT is UTC-4 in September)
+const TOURNAMENT_DATE = new Date('2026-09-26T07:00:00-04:00');
+
+function getTimeLeft() {
+  const diff = Math.max(0, TOURNAMENT_DATE.getTime() - Date.now());
+  return {
+    days:    Math.floor(diff / 86400000),
+    hours:   Math.floor(diff / 3600000) % 24,
+    minutes: Math.floor(diff / 60000) % 60,
+    seconds: Math.floor(diff / 1000) % 60,
+    done:    diff === 0,
+  };
+}
+
+function Countdown() {
+  const [time, setTime] = useState(getTimeLeft);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      const next = getTimeLeft();
+      setTime(next);
+      // Freeze at 00:00:00:00 once tee off arrives
+      if (next.done) clearInterval(id);
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const units = [
+    { value: time.days,    label: 'Days'    },
+    { value: time.hours,   label: 'Hours'   },
+    { value: time.minutes, label: 'Minutes' },
+    { value: time.seconds, label: 'Seconds' },
+  ];
+
+  return (
+    <div className="mb-7">
+      <p
+        className="text-xs font-bold tracking-widest uppercase mb-2.5"
+        style={{ color: '#DDB870' }}
+      >
+        {time.done ? 'It’s Tournament Day!' : 'Tee Off In'}
+      </p>
+      <div className="grid grid-cols-4 gap-2 sm:gap-3 max-w-md">
+        {units.map(unit => (
+          <div
+            key={unit.label}
+            className="rounded-xl py-2.5 sm:py-3 text-center"
+            style={{ backgroundColor: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.10)' }}
+          >
+            <p
+              className="font-display font-bold text-white leading-none"
+              style={{ fontSize: 'clamp(20px, 6vw, 30px)', fontVariantNumeric: 'tabular-nums' }}
+            >
+              {String(unit.value).padStart(2, '0')}
+            </p>
+            <p
+              className="text-[10px] font-semibold tracking-widest uppercase mt-1.5"
+              style={{ color: 'rgba(255,255,255,0.50)' }}
+            >
+              {unit.label}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 interface TournamentSectionProps {
   onOpenDetails:  () => void;
@@ -68,6 +137,9 @@ export default function TournamentSection({ onOpenDetails, onOpenRegister }: Tou
                     </div>
                   ))}
                 </div>
+
+                {/* Countdown to tee off */}
+                <Countdown />
 
                 {/* CTAs */}
                 <div className="flex flex-wrap gap-3 mb-7">
