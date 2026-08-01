@@ -88,6 +88,11 @@ const ARTWORKS = [
     alt:   'Pelican XC logo made from recycled golf tees — black and blue tees forming a pelican silhouette with script lettering in a framed display',
     title: 'Pelican XC',
   },
+  {
+    src:   '/images/art17.jpg',
+    alt:   'Golden retriever portrait made from recycled golf tees — tan and black tees forming the dog’s face, ears, and nose in a dark wood frame',
+    title: 'Golden Retriever',
+  },
 ];
 
 // Duplicate for seamless infinite loop

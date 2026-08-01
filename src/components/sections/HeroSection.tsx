@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowDown, Leaf } from 'lucide-react';
+import { ArrowDown, ChevronRight, Leaf } from 'lucide-react';
 import { useInView } from '@/hooks/useInView';
 
 interface HeroSectionProps {
@@ -53,7 +53,7 @@ export default function HeroSection({ onOpenInquiry }: HeroSectionProps) {
   const { ref: statsRef, inView: statsInView } = useInView();
 
   const pct    = useCountUp(100,  1600, statsInView, 0);
-  const lbs    = useCountUp(2,    1000, statsInView, 250);
+  const lbs    = useCountUp(3,    1000, statsInView, 250);
   const litter = useCountUp(6121, 2400, statsInView, 500);
   const typed  = useTypewriter(TYPEWRITER_TARGET, 1100, statsInView, 750);
   const showCursor = statsInView && typed.length < TYPEWRITER_TARGET.length;
@@ -67,6 +67,10 @@ export default function HeroSection({ onOpenInquiry }: HeroSectionProps) {
 
   const scrollToArtwork = () => {
     document.querySelector('#artwork')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const scrollToTournament = () => {
+    document.querySelector('#tournament')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -203,24 +207,33 @@ export default function HeroSection({ onOpenInquiry }: HeroSectionProps) {
             and the environment.
           </p>
 
-          {/* CTAs */}
-          <div className="flex flex-wrap gap-3">
+          {/* CTAs — mobile: stacked (inquire · tournament · artwork).
+              sm+: inquire + artwork on one row, tournament spanning beneath. */}
+          <div className="flex flex-col items-start sm:grid sm:grid-cols-[auto_auto] sm:justify-start gap-3">
             <button
               onClick={onOpenInquiry}
-              className="btn-sweep-dark inline-flex items-center text-sm font-semibold rounded-full px-6 py-3.5 transition-all hover:opacity-90 active:scale-95 cursor-pointer"
+              className="btn-sweep-dark order-1 inline-flex items-center text-sm font-semibold rounded-full px-6 py-3.5 transition-all hover:opacity-90 active:scale-95 cursor-pointer"
               style={{ backgroundColor: '#FAFAF6', color: '#1B3D2C' }}
             >
               Inquire About a Custom Piece
             </button>
             <button
               onClick={scrollToArtwork}
-              className="btn-sweep inline-flex items-center gap-1.5 text-sm font-medium text-white rounded-full px-6 py-3.5 border transition-all cursor-pointer"
+              className="btn-sweep order-3 sm:order-2 inline-flex items-center gap-1.5 text-sm font-medium text-white rounded-full px-6 py-3.5 border transition-all cursor-pointer"
               style={{ borderColor: 'rgba(255,255,255,0.26)' }}
               onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.07)')}
               onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
             >
               View Artwork
               <ArrowDown size={13} />
+            </button>
+            <button
+              onClick={scrollToTournament}
+              className="btn-sweep order-2 sm:order-3 sm:col-span-2 w-auto sm:w-full inline-flex items-center justify-center gap-2 text-sm font-semibold rounded-full px-6 py-3.5 transition-all hover:opacity-90 active:scale-95 cursor-pointer"
+              style={{ backgroundColor: '#A87D2E', color: '#FFFFFF' }}
+            >
+              Sign Up for the Tournament
+              <ChevronRight size={14} />
             </button>
           </div>
 

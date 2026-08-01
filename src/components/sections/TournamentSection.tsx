@@ -1,9 +1,13 @@
-import { useState, useEffect } from 'react';
-import { MapPin, Calendar, Users, Trophy, ChevronRight, Phone, Mail } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { MapPin, Calendar, Users, Trophy, ChevronRight, Phone, Mail, Plus, Minus } from 'lucide-react';
 import { useInView } from '@/hooks/useInView';
 
 // Sat, Sept 26, 2026 · 7:00 AM Eastern (Tampa, FL — EDT is UTC-4 in September)
 const TOURNAMENT_DATE = new Date('2026-09-26T07:00:00-04:00');
+
+// Field size and registrations to date — bump TEAMS_REGISTERED as teams sign up
+const TEAMS_REGISTERED = 12;
+const TEAMS_TOTAL      = 36;
 
 function getTimeLeft() {
   const diff = Math.max(0, TOURNAMENT_DATE.getTime() - Date.now());
@@ -70,6 +74,237 @@ function Countdown() {
   );
 }
 
+const TEAMS_ENDPOINT    = '/teams.php';
+const SECRET_TAP_COUNT  = 3;   // taps on the pill that reveal the admin panel
+const SECRET_TAP_WINDOW = 700; // ms — every tap must land inside this of the last
+
+const clampTeams = (n: number) => Math.min(TEAMS_TOTAL, Math.max(0, n));
+
+type SaveStatus = 'idle' | 'saving' | 'saved' | 'error';
+
+/** Where teams.php keeps the count, and whether it found one at all. */
+type StoreInfo = { stored: boolean; location: string | null };
+
+const readStoreInfo = (data: { stored?: unknown; location?: unknown }): StoreInfo => ({
+  stored:   data.stored === true,
+  location: typeof data.location === 'string' ? data.location : null,
+});
+
+function TeamTracker() {
+  const [registered, setRegistered] = useState(TEAMS_REGISTERED);
+  const [editing, setEditing]       = useState(false);
+  const [draft, setDraft]           = useState(TEAMS_REGISTERED);
+  const [pin, setPin]               = useState('');
+  const [status, setStatus]         = useState<SaveStatus>('idle');
+  const [message, setMessage]       = useState('');
+  const [store, setStore]           = useState<StoreInfo | null>(null);
+  const taps    = useRef<number[]>([]);
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  const pct = Math.min(100, Math.round((registered / TEAMS_TOTAL) * 100));
+
+  // Everyone sees the same number. If the endpoint is missing or unreachable
+  // (local dev, host hiccup) the committed TEAMS_REGISTERED stands in.
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch(TEAMS_ENDPOINT, {
+      signal:  controller.signal,
+      cache:   'no-store',
+      headers: { Accept: 'application/json' },
+    })
+      .then(res => (res.ok ? res.json() : Promise.reject(new Error('bad status'))))
+      .then((data: { registered?: unknown; stored?: unknown; location?: unknown }) => {
+        if (typeof data.registered === 'number') {
+          setRegistered(clampTeams(data.registered));
+          setDraft(clampTeams(data.registered));
+          setStore(readStoreInfo(data));
+        }
+      })
+      .catch(() => { /* keep the committed fallback */ });
+    return () => controller.abort();
+  }, []);
+
+  // Tap the pill SECRET_TAP_COUNT times to open the panel, again to close it
+  const handleTap = () => {
+    const now = Date.now();
+    taps.current = [...taps.current.filter(t => now - t < SECRET_TAP_WINDOW), now];
+    if (taps.current.length >= SECRET_TAP_COUNT) {
+      taps.current = [];
+      setEditing(open => {
+        if (!open) { setDraft(registered); setStatus('idle'); setMessage(''); }
+        return !open;
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (!editing) return;
+    const onPointerDown = (e: MouseEvent | TouchEvent) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setEditing(false);
+    };
+    document.addEventListener('mousedown', onPointerDown);
+    document.addEventListener('touchstart', onPointerDown);
+    return () => {
+      document.removeEventListener('mousedown', onPointerDown);
+      document.removeEventListener('touchstart', onPointerDown);
+    };
+  }, [editing]);
+
+  const save = async () => {
+    setStatus('saving');
+    setMessage('');
+    try {
+      const res  = await fetch(TEAMS_ENDPOINT, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ pin, registered: draft }),
+      });
+      const data = await res.json().catch(() => ({} as {
+        ok?: unknown; registered?: unknown; error?: string; stored?: unknown; location?: unknown;
+      }));
+
+      if (!res.ok) {
+        setStatus('error');
+        setMessage(res.status === 401 ? 'Wrong PIN' : (data.error ?? 'Could not save'));
+        return;
+      }
+
+      // A missing teams.php falls through .htaccess to index.html, which is a
+      // 200 of HTML — so only a real JSON acknowledgement counts as saved.
+      if (data.ok !== true || typeof data.registered !== 'number') {
+        setStatus('error');
+        setMessage('teams.php not responding — check it is uploaded');
+        return;
+      }
+
+      setRegistered(clampTeams(data.registered));
+      setStore(readStoreInfo(data));
+      setStatus('saved');
+      setMessage('Updated for everyone');
+    } catch {
+      setStatus('error');
+      setMessage('Could not reach the server');
+    }
+  };
+
+  const stepButton = (label: string, delta: number, Icon: typeof Plus) => (
+    <button
+      type="button"
+      onClick={() => { setDraft(d => clampTeams(d + delta)); setStatus('idle'); setMessage(''); }}
+      aria-label={label}
+      className="w-8 h-8 rounded-full flex items-center justify-center transition-all hover:opacity-80 active:scale-90"
+      style={{ backgroundColor: 'rgba(221,184,112,0.20)', border: '1px solid rgba(221,184,112,0.40)' }}
+    >
+      <Icon size={14} style={{ color: '#DDB870' }} />
+    </button>
+  );
+
+  return (
+    <div ref={wrapRef} className="relative">
+      <div
+        onClick={handleTap}
+        className="inline-flex items-center gap-3 rounded-full px-5 py-3 border select-none"
+        style={{ borderColor: 'rgba(255,255,255,0.16)', backgroundColor: 'rgba(255,255,255,0.06)' }}
+      >
+        <Users size={13} style={{ color: '#DDB870', flexShrink: 0 }} />
+        <span
+          className="text-sm font-semibold text-white whitespace-nowrap"
+          style={{ fontVariantNumeric: 'tabular-nums' }}
+        >
+          {registered}
+          <span style={{ color: 'rgba(255,255,255,0.45)' }}> / {TEAMS_TOTAL} teams</span>
+        </span>
+        <div
+          className="w-14 h-1.5 rounded-full overflow-hidden flex-shrink-0"
+          style={{ backgroundColor: 'rgba(255,255,255,0.15)' }}
+          role="progressbar"
+          aria-valuenow={registered}
+          aria-valuemin={0}
+          aria-valuemax={TEAMS_TOTAL}
+          aria-label={`${registered} of ${TEAMS_TOTAL} teams registered`}
+        >
+          <div
+            className="h-full rounded-full transition-all duration-300"
+            style={{ width: `${pct}%`, backgroundColor: '#DDB870' }}
+          />
+        </div>
+      </div>
+
+      {/* Hidden admin panel — triple-tap the pill to reach it */}
+      {editing && (
+        <div
+          className="absolute left-0 top-full mt-2 z-30 w-64 rounded-2xl p-4 shadow-2xl"
+          style={{ backgroundColor: '#12281C', border: '1px solid rgba(255,255,255,0.14)' }}
+        >
+          <p className="text-[10px] font-bold tracking-widest uppercase mb-3" style={{ color: '#DDB870' }}>
+            Registered teams
+          </p>
+
+          <div className="flex items-center justify-between mb-3">
+            {stepButton('Remove a team', -1, Minus)}
+            <span
+              className="font-display font-bold text-white leading-none"
+              style={{ fontSize: '1.75rem', fontVariantNumeric: 'tabular-nums' }}
+            >
+              {draft}
+              <span className="text-sm font-medium" style={{ color: 'rgba(255,255,255,0.40)' }}>
+                {' '}/ {TEAMS_TOTAL}
+              </span>
+            </span>
+            {stepButton('Add a team', 1, Plus)}
+          </div>
+
+          {/* A wiped or never-written store would otherwise just look like
+              a healthy count of TEAMS_REGISTERED. Say so where you'll see it. */}
+          {store && !store.stored && (
+            <p className="text-[11px] leading-snug mb-2" style={{ color: '#E8998F' }}>
+              Nothing saved on the server — showing the built-in {TEAMS_REGISTERED}. Save to set the real count.
+            </p>
+          )}
+          {store?.location === 'webroot' && (
+            <p className="text-[11px] leading-snug mb-2" style={{ color: '#E8998F' }}>
+              Stored inside public_html — a redeploy that clears it will erase the count.
+            </p>
+          )}
+
+          <input
+            type="password"
+            value={pin}
+            onChange={e => { setPin(e.target.value); setStatus('idle'); setMessage(''); }}
+            placeholder="PIN"
+            autoComplete="off"
+            aria-label="Admin PIN"
+            className="w-full rounded-lg px-3 py-2 text-sm text-white mb-2 outline-none"
+            style={{
+              backgroundColor: 'rgba(255,255,255,0.08)',
+              border: `1px solid ${status === 'error' ? 'rgba(220,120,110,0.55)' : 'rgba(255,255,255,0.14)'}`,
+            }}
+          />
+
+          <button
+            type="button"
+            onClick={save}
+            disabled={status === 'saving' || draft === registered}
+            className="w-full rounded-lg py-2 text-sm font-semibold transition-all hover:opacity-90 active:scale-95 disabled:opacity-40"
+            style={{ backgroundColor: '#A87D2E', color: '#FFFFFF' }}
+          >
+            {status === 'saving' ? 'Saving…' : 'Save for everyone'}
+          </button>
+
+          {message && (
+            <p
+              className="text-[11px] mt-2 text-center"
+              style={{ color: status === 'error' ? '#E8998F' : '#DDB870' }}
+            >
+              {message}
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 interface TournamentSectionProps {
   onOpenDetails:  () => void;
   onOpenRegister: () => void;
@@ -120,6 +355,43 @@ export default function TournamentSection({ onOpenDetails, onOpenRegister }: Tou
                   <em style={{ color: '#DDB870' }}>Invitational</em>
                 </h2>
 
+                {/* Presenting sponsors — white knockout logos sit straight on
+                    the dark backdrop, no plaque needed */}
+                <div className="flex flex-col items-start gap-y-3 sm:flex-row sm:items-center sm:gap-x-5 mb-6">
+                  <span
+                    className="text-[10px] font-semibold tracking-[0.18em] uppercase"
+                    style={{ color: 'rgba(255,255,255,0.45)' }}
+                  >
+                    Proudly sponsored by
+                  </span>
+                  {/* Logos stay on one line together at every width */}
+                  <div className="flex items-center gap-4 sm:gap-5">
+                    <img
+                      src="/images/pelican_xc_logo.png"
+                      alt="Pelican XC"
+                      width={795}
+                      height={265}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-8 w-auto block"
+                    />
+                    <span
+                      className="h-6 w-px block flex-shrink-0"
+                      style={{ backgroundColor: 'rgba(221,184,112,0.35)' }}
+                      aria-hidden="true"
+                    />
+                    <img
+                      src="/images/mettel_logo.png"
+                      alt="MetTel"
+                      width={679}
+                      height={234}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-6 w-auto block"
+                    />
+                  </div>
+                </div>
+
                 {/* Info chips */}
                 <div className="flex flex-wrap gap-2 mb-6">
                   {[
@@ -158,6 +430,7 @@ export default function TournamentSection({ onOpenDetails, onOpenRegister }: Tou
                   >
                     Event Details
                   </button>
+                  <TeamTracker />
                 </div>
 
                 {/* Prizes + Contact — compact two cards */}
@@ -176,7 +449,7 @@ export default function TournamentSection({ onOpenDetails, onOpenRegister }: Tou
                     </div>
                     <div className="flex flex-col gap-2">
                       {[
-                        { label: '1st Place',         value: '$1,000 Cash'  },
+                        { label: '1st Place',         value: '$1,000 Cash + Free Streamsong foursome' },
                         { label: 'Engraved Trophy',   value: 'Names + Score' },
                         { label: 'Individual Awards',     value: 'Each winner'  },
                         { label: 'And More',          value: 'Day-of surprises' },
