@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { X, Trophy } from 'lucide-react';
+import { TOURNAMENT_SOLD_OUT } from '@/components/sections/TournamentSection';
 
 const SCHEDULE = [
   { time: '7:00 AM', event: 'Registration & Breakfast',  desc: 'Grab-and-go breakfast at the clubhouse'              },
@@ -217,11 +218,16 @@ export default function TournamentModal({ open, onClose, onRegister }: Tournamen
           style={{ borderColor: 'rgba(27,61,44,0.10)', backgroundColor: '#FAFAF6' }}
         >
           <button
-            onClick={() => { onClose(); onRegister(); }}
-            className="btn-sweep w-full sm:w-auto text-center text-sm font-semibold text-white rounded-full px-7 py-3 transition-all hover:opacity-90 cursor-pointer"
-            style={{ backgroundColor: '#1B3D2C' }}
+            onClick={TOURNAMENT_SOLD_OUT ? undefined : () => { onClose(); onRegister(); }}
+            disabled={TOURNAMENT_SOLD_OUT}
+            aria-disabled={TOURNAMENT_SOLD_OUT}
+            className="btn-sweep w-full sm:w-auto text-center text-sm font-semibold rounded-full px-7 py-3 transition-all hover:opacity-90 disabled:hover:opacity-100 disabled:cursor-not-allowed cursor-pointer"
+            style={{
+              backgroundColor: TOURNAMENT_SOLD_OUT ? '#EDEDE6' : '#1B3D2C',
+              color:           TOURNAMENT_SOLD_OUT ? '#8A8A82' : '#FFFFFF',
+            }}
           >
-            Register Your Team
+            {TOURNAMENT_SOLD_OUT ? 'Sold Out' : 'Register Your Team'}
           </button>
           <a
             href="mailto:nik@retees.com"

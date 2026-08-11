@@ -93,6 +93,16 @@ const ARTWORKS = [
     alt:   'Golden retriever portrait made from recycled golf tees — tan and black tees forming the dog’s face, ears, and nose in a dark wood frame',
     title: 'Golden Retriever',
   },
+  {
+    src:   '/images/art18.jpg',
+    alt:   'Black Labrador retriever made from recycled golf tees — black tees with a red collar accent and an engraved "2026 U.S. Girls\' Junior Champion" nameplate in a black frame',
+    title: 'U.S. Girls Junior Champion',
+  },
+  {
+    src:   '/images/art19.jpg',
+    alt:   'Company Logo made from recycled golf tees — blue and black tees outlining a gator company logo above "SSD" and "SFL7" lettering in a black frame',
+    title: 'Company Logo',
+  },
 ];
 
 // Duplicate for seamless infinite loop

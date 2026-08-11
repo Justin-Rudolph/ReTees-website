@@ -6,8 +6,11 @@ import { useInView } from '@/hooks/useInView';
 const TOURNAMENT_DATE = new Date('2026-09-26T07:00:00-04:00');
 
 // Field size and registrations to date — bump TEAMS_REGISTERED as teams sign up
-const TEAMS_REGISTERED = 12;
+const TEAMS_REGISTERED = 36;
 const TEAMS_TOTAL      = 36;
+
+// Flip back to false once a team drops and a spot reopens
+export const TOURNAMENT_SOLD_OUT = true;
 
 function getTimeLeft() {
   const diff = Math.max(0, TOURNAMENT_DATE.getTime() - Date.now());
@@ -416,19 +419,25 @@ export default function TournamentSection({ onOpenDetails, onOpenRegister }: Tou
                 {/* CTAs */}
                 <div className="flex flex-wrap gap-3 mb-7">
                   <button
-                    onClick={onOpenRegister}
-                    className="btn-sweep inline-flex items-center gap-2 text-sm font-semibold rounded-full px-6 py-3 transition-all hover:opacity-90 active:scale-95"
-                    style={{ backgroundColor: '#A87D2E', color: '#FFFFFF' }}
-                  >
-                    Register Your Team
-                    <ChevronRight size={14} />
-                  </button>
-                  <button
                     onClick={onOpenDetails}
-                    className="btn-sweep inline-flex items-center text-sm font-semibold text-white rounded-full px-6 py-3 border transition-all hover:bg-white/10"
-                    style={{ borderColor: 'rgba(255,255,255,0.28)' }}
+                    className="btn-sweep inline-flex items-center text-sm font-semibold text-white rounded-full px-6 py-3 transition-all hover:opacity-90 active:scale-95"
+                    style={{ backgroundColor: '#A87D2E' }}
                   >
                     Event Details
+                  </button>
+                  <button
+                    onClick={TOURNAMENT_SOLD_OUT ? undefined : onOpenRegister}
+                    disabled={TOURNAMENT_SOLD_OUT}
+                    aria-disabled={TOURNAMENT_SOLD_OUT}
+                    className="btn-sweep inline-flex items-center gap-2 text-sm font-semibold rounded-full px-6 py-3 transition-all hover:opacity-90 active:scale-95 disabled:hover:opacity-100 disabled:active:scale-100 disabled:cursor-not-allowed"
+                    style={{
+                      backgroundColor: TOURNAMENT_SOLD_OUT ? 'rgba(255,255,255,0.10)' : '#A87D2E',
+                      color:           TOURNAMENT_SOLD_OUT ? 'rgba(255,255,255,0.55)' : '#FFFFFF',
+                      border:          TOURNAMENT_SOLD_OUT ? '1px solid rgba(255,255,255,0.16)' : 'none',
+                    }}
+                  >
+                    {TOURNAMENT_SOLD_OUT ? 'Registration Ended - Sold Out' : 'Register Your Team'}
+                    {!TOURNAMENT_SOLD_OUT && <ChevronRight size={14} />}
                   </button>
                   <TeamTracker />
                 </div>
@@ -523,7 +532,7 @@ export default function TournamentSection({ onOpenDetails, onOpenRegister }: Tou
                     className="px-4 py-2.5 flex items-center justify-between"
                     style={{ backgroundColor: 'rgba(0,0,0,0.55)' }}
                   >
-                    <p className="text-xs font-semibold text-white">Invitational Champions</p>
+                    <p className="text-xs font-semibold text-white">2025 Invitational Champions</p>
                     <p className="text-xs" style={{ color: 'rgba(255,255,255,0.45)' }}>Tampa, FL</p>
                   </div>
                 </div>

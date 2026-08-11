@@ -232,7 +232,7 @@ export default function HeroSection({ onOpenInquiry }: HeroSectionProps) {
               className="btn-sweep order-2 sm:order-3 sm:col-span-2 w-auto sm:w-full inline-flex items-center justify-center gap-2 text-sm font-semibold rounded-full px-6 py-3.5 transition-all hover:opacity-90 active:scale-95 cursor-pointer"
               style={{ backgroundColor: '#A87D2E', color: '#FFFFFF' }}
             >
-              Sign Up for the Tournament
+              View Tournament Details
               <ChevronRight size={14} />
             </button>
           </div>
