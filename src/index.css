@@ -302,7 +302,11 @@
 
 .marquee-track {
   display: flex;
-  gap: 1rem;
+  /* No `gap` here — it only sits *between* items (N-1 of them), so with a
+     duplicated track and translateX(-50%), half the total width lands half
+     a gap short of one true set, snapping visibly every loop restart. Each
+     item carries its own trailing margin instead (see .artwork-card-wrapper). */
+  gap: 0;
   width: max-content;
   animation: marquee-scroll 65s linear infinite;
   will-change: transform;
@@ -310,14 +314,78 @@
   -webkit-backface-visibility: hidden;
 }
 
-.marquee-track:hover {
-  animation-play-state: paused;
+/* Only pause on hover for devices with real hover (mouse) — on touch
+   devices like iOS, a tap can otherwise trigger a "stuck" hover state
+   and pause the scroll unintentionally. */
+@media (hover: hover) and (pointer: fine) {
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+}
+
+/* Sponsor logo strip — tighter gap and quicker scroll on mobile, roomier/slower on larger screens.
+   Spacing is a per-item margin, not `gap` — `gap` only sits *between* items
+   (N-1 of them), so half the duplicated track's width lands half a gap short
+   of one true set, causing a visible snap every time the loop restarts.
+   A trailing margin on every item (2N of them) keeps that math exact. */
+.sponsor-marquee-track {
+  gap: 0;
+  animation-duration: 35s;
+  /* Starting offset (see JS comment) scaled to this duration so the strip
+     opens on the same relative position in the loop as on desktop. */
+  /* animation-delay: -43s; */
+}
+
+@media (min-width: 640px) {
+  .sponsor-marquee-track {
+    animation-duration: 40s;
+    /* animation-delay: -61s; */
+  }
+}
+
+.sponsor-logo-item {
+  width: 160px;
+  height: 95px;
+  margin-right: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .sponsor-logo-item {
+    margin-right: 4rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .sponsor-logo-item {
+    width: 130px;
+    height: 77px;
+  }
+}
+
+/* Blank spacer before MetTel in the sponsor strip (see SPONSOR_LOGOS) — a
+   much smaller box with a negative left margin that eats into the
+   preceding logo's normal trailing margin, so the gap on both sides of it
+   reads as a brief breather rather than a big empty hole in the strip. */
+.sponsor-logo-spacer {
+  width: 16px;
+  height: 95px;
+  margin-right: 0rem;
+  margin-left: 3rem;
+}
+
+@media (max-width: 639px) {
+  .sponsor-logo-spacer {
+    height: 77px;
+    margin-right: 0rem;
+    margin-left: 3rem;
+  }
 }
 
 /* ── Artwork card hover: wrapper drives scale/opacity + radial glow ── */
 .artwork-card-wrapper {
   position: relative;
   z-index: 0;
+  margin-right: 1rem;
   transition:
     transform   0.38s cubic-bezier(0.16, 1, 0.3, 1),
     opacity     0.32s ease;

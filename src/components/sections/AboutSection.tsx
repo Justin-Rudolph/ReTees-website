@@ -18,7 +18,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="py-20 sm:py-28"
+      className="pt-12 pb-14 sm:pt-16 sm:pb-20"
       style={{ backgroundColor: '#FAFAF6' }}
       aria-labelledby="about-heading"
     >

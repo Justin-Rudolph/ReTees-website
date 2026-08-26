@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { Trophy, Star, Flag, Droplets } from 'lucide-react';
 import { useInView } from '@/hooks/useInView';
 
@@ -74,30 +75,69 @@ const TIERS = [
 
 type Tier = (typeof TIERS)[number];
 
+// Current sponsor logos — right under the section header, above the tiers.
+const SPONSOR_LOGOS: { src: string; alt: string; spacer?: boolean }[] = [
+  // Blank spacer — gives the loop restart a brief breather before MetTel
+  // instead of MetTel appearing flush at the edge. Sized down in CSS
+  // (.sponsor-logo-spacer) so it doesn't read as a big empty gap.
+  { src: '/images/retees sponsors/Empty.png',       alt: '', spacer: true },
+  { src: '/images/retees sponsors/mettel.png',      alt: 'MetTel' },
+  { src: '/images/retees sponsors/pelican.png',     alt: 'Pelican XC' },
+  { src: '/images/retees sponsors/streamsong.png',  alt: 'Streamsong' },
+  { src: '/images/retees sponsors/kalshi.png',      alt: 'Kalshi' },
+  { src: '/images/retees sponsors/suros.png',       alt: 'SUROS Logic Systems' },
+  { src: '/images/retees sponsors/swans.png',       alt: 'Swans Multimedia' },
+  { src: '/images/retees sponsors/michini.png',     alt: 'Michini Wealth Management' },
+  { src: '/images/retees sponsors/window.png',      alt: 'Window Magic' },
+  { src: '/images/retees sponsors/flash.png',       alt: 'Flash Energy Drink' },
+  { src: '/images/retees sponsors/tommys.png',      alt: "Tommy's Express Car Wash" },
+  { src: '/images/retees sponsors/elevated.png',    alt: 'Elevated Boat Services' },
+];
+
+// Duplicate for seamless infinite loop
+const SPONSOR_LOGO_TRACK = [...SPONSOR_LOGOS, ...SPONSOR_LOGOS];
+
 /**
- * Existing partners, framed like the tee-box signage a sponsorship buys:
- * cream panel, gold hairline echoing the rules inside the artwork.
+ * Infinite marquee of current sponsor logos — just the logos, no card chrome.
+ * The scroll animation pauses whenever the strip is off-screen.
  */
-function SponsorBoard({ className = '' }: { className?: string }) {
+function SponsorLogoCarousel() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [onScreen, setOnScreen] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setOnScreen(entry.isIntersecting),
+      { threshold: 0.01 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div
-      className={`rounded-2xl p-3 sm:p-4 ${className}`}
-      style={{
-        backgroundColor: '#F5F0E8',
-        border:          '1px solid rgba(27,61,44,0.10)',
-        boxShadow:       '0 16px 48px rgba(27,61,44,0.10)',
-      }}
-    >
-      <img
-        src="/images/all_sponsors.jpeg"
-        alt="Thank you to our sponsors — Pelican XC, MetTel, Streamsong, Swans Multimedia, Elevated Boat Services, SUROS Logic Systems, Michini Wealth Management, and Window Magic"
-        width={1085}
-        height={964}
-        loading="lazy"
-        decoding="async"
-        className="w-full h-auto block rounded-xl"
-        style={{ boxShadow: 'inset 0 0 0 1px rgba(168,125,46,0.28)' }}
-      />
+    <div ref={containerRef} className="marquee-container mb-12" aria-label="Our sponsors">
+      <div
+        className="marquee-track sponsor-marquee-track"
+        style={onScreen ? undefined : { animationPlayState: 'paused' }}
+      >
+        {SPONSOR_LOGO_TRACK.map((logo, i) => (
+          <div
+            key={i}
+            className={`flex-shrink-0 flex items-center justify-center ${logo.spacer ? 'sponsor-logo-spacer' : 'sponsor-logo-item'}`}
+            aria-hidden={logo.spacer || i >= SPONSOR_LOGOS.length}
+          >
+            <img
+              src={logo.src}
+              alt={logo.alt}
+              loading="eager"
+              decoding="async"
+              className="max-w-full max-h-full object-contain"
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -200,14 +240,10 @@ export default function SponsorSection({ onOpenSponsor }: SponsorSectionProps) {
 
   const visibleTiers = TIERS.filter(tier => !tier.hidden);
 
-  // With one tier open, the sponsor board shares the row with it —
-  // who's already backing the event, and the one way left to join.
-  const pairedWithBoard = visibleTiers.length === 1;
-
   return (
     <section
       id="sponsors"
-      className="py-20 sm:py-28"
+      className="pt-12 pb-14 sm:pt-16 sm:pb-20"
       style={{ backgroundColor: '#FAFAF6' }}
       aria-labelledby="sponsor-heading"
     >
@@ -232,36 +268,27 @@ export default function SponsorSection({ onOpenSponsor }: SponsorSectionProps) {
           </p>
         </div>
 
-        {/* Existing partners + the open tier */}
-        {pairedWithBoard ? (
+        {/* Current sponsor logos */}
+        <SponsorLogoCarousel />
+
+        {/* Sponsorship tiers */}
+        {visibleTiers.length === 1 ? (
           <div
             ref={cardsRef as React.RefObject<HTMLDivElement>}
-            className={`reveal reveal-delay-1 ${cardsIn ? 'in-view' : ''} grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-12 items-center mb-12`}
+            className={`reveal reveal-delay-1 ${cardsIn ? 'in-view' : ''} w-full max-w-sm mx-auto`}
           >
-            {/* Stacked on mobile the ask comes first; side by side it sits
-                to the right of the partners, so the order flips at lg */}
-            <SponsorBoard className="order-2 lg:order-1" />
-            <div className="order-1 lg:order-2 w-full max-w-sm mx-auto">
-              <TierCard tier={visibleTiers[0]} onOpenSponsor={onOpenSponsor} />
-            </div>
+            <TierCard tier={visibleTiers[0]} onOpenSponsor={onOpenSponsor} />
           </div>
         ) : (
-          <>
-            <div
-              ref={cardsRef as React.RefObject<HTMLDivElement>}
-              className={`reveal reveal-delay-1 ${cardsIn ? 'in-view' : ''} grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12`}
-            >
-              {visibleTiers.map(tier => (
-                <TierCard key={tier.name} tier={tier} onOpenSponsor={onOpenSponsor} />
-              ))}
-            </div>
-            <SponsorBoard className="max-w-2xl mx-auto mb-12" />
-          </>
+          <div
+            ref={cardsRef as React.RefObject<HTMLDivElement>}
+            className={`reveal reveal-delay-1 ${cardsIn ? 'in-view' : ''} grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5`}
+          >
+            {visibleTiers.map(tier => (
+              <TierCard key={tier.name} tier={tier} onOpenSponsor={onOpenSponsor} />
+            ))}
+          </div>
         )}
-
-        {/* Bottom note */}
-        <div className="text-center flex flex-col items-center gap-4">
-        </div>
       </div>
     </section>
   );

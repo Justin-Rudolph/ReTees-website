@@ -6,7 +6,8 @@ const NAV_LINKS = [
   { label: 'About',      href: '#about'      },
   { label: 'Tournament', href: '#tournament' },
   { label: 'Sponsors',   href: '#sponsors'   },
-  { label: 'Shop',       href: '#shop'       },
+  // Shop temporarily disabled — HatSection's shop content is commented out.
+  // { label: 'Shop',       href: '#shop'       },
   { label: 'Contact',    href: '#contact'    },
 ];
 
@@ -65,7 +66,7 @@ export default function Header({ onOpenInquiry }: HeaderProps) {
             >
               {/* max constraints + auto dimensions shrink the logo proportionally when space is tight */}
               <img
-                src="/images/logo.PNG"
+                src="/images/logo.png"
                 alt="ReTees"
                 style={{ maxHeight: '44px', maxWidth: '100%', width: 'auto', height: 'auto', display: 'block' }}
               />

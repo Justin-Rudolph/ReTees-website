@@ -40,7 +40,8 @@ const QUICK_LINKS = [
   { label: 'About',      href: '#about'      },
   { label: 'Tournament', href: '#tournament' },
   { label: 'Sponsors',   href: '#sponsors'   },
-  { label: 'Shop',       href: '#shop'       },
+  // Shop temporarily disabled — HatSection's shop content is commented out.
+  // { label: 'Shop',       href: '#shop'       },
 ];
 
 interface FooterProps {
@@ -105,7 +106,7 @@ export default function Footer({ onOpenInquiry }: FooterProps) {
                 style={{ backgroundColor: '#FFFFFF' }}
               >
                 <img
-                  src="/images/logo.PNG"
+                  src="/images/logo.png"
                   alt="ReTees"
                   style={{ height: '26px', width: 'auto', display: 'block' }}
                 />

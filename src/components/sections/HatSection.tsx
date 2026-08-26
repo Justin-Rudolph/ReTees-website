@@ -1,25 +1,32 @@
-import { ExternalLink, ChevronRight } from 'lucide-react';
-import { useInView } from '@/hooks/useInView';
-
-const HAT_PURCHASE_URL = 'https://connect.intuit.com/pay/ReteesLlc/scs-v1-d900406186ca40bfab39bb3d57a21fabe05a5b0106b0436ab433b4a47836fe778d2583aa8f49451880d987ed13b3e815?locale=EN_US&cta=saveandcopylink';
+import { ChevronRight } from 'lucide-react';
+// `ExternalLink`, `useInView`, and `HAT_PURCHASE_URL` are only used by the
+// commented-out shop block below — restore these imports/const alongside it.
+// import { ExternalLink } from 'lucide-react';
+// import { useInView } from '@/hooks/useInView';
+// const HAT_PURCHASE_URL = 'https://connect.intuit.com/pay/ReteesLlc/scs-v1-d900406186ca40bfab39bb3d57a21fabe05a5b0106b0436ab433b4a47836fe778d2583aa8f49451880d987ed13b3e815?locale=EN_US&cta=saveandcopylink';
 
 export default function HatSection() {
-  const { ref, inView } = useInView();
+  // const { ref, inView } = useInView();
 
   return (
     <section
       id="shop"
-      className="py-20 sm:py-28"
+      className="py-14 sm:py-16"
       style={{ backgroundColor: '#F5F0E8' }}
       aria-labelledby="shop-heading"
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
-        <div
+        {/*
+          Shop temporarily disabled — hat sales are paused. GoFundMe callout
+          below stays active. Uncomment this block (and restore the `ref`/
+          `inView` reveal wiring below) to bring the shop back.
+        */}
+        {/* <div
           ref={ref as React.RefObject<HTMLDivElement>}
           className={`reveal ${inView ? 'in-view' : ''} grid lg:grid-cols-2 gap-12 lg:gap-20 items-center`}
         >
 
-          {/* Product image */}
+          {/* Product image *\/}
           <div className="flex justify-center lg:justify-end">
             <div className="relative" style={{ maxWidth: '420px', width: '100%' }}>
               <img
@@ -29,7 +36,7 @@ export default function HatSection() {
                 style={{ backgroundColor: '#F0EDE8' }}
               />
 
-              {/* Price badge */}
+              {/* Price badge *\/}
               <div
                 className="absolute top-4 right-4 rounded-xl px-4 py-2 shadow-lg"
                 style={{ backgroundColor: '#1B3D2C' }}
@@ -39,7 +46,7 @@ export default function HatSection() {
             </div>
           </div>
 
-          {/* Product info */}
+          {/* Product info *\/}
           <div>
             <p className="section-label mb-4">The Shop</p>
             <h2
@@ -58,7 +65,7 @@ export default function HatSection() {
               ReTees community, on and off the course.
             </p>
 
-            {/* Recycled stat */}
+            {/* Recycled stat *\/}
             <div
               className="inline-flex items-center gap-3 rounded-xl px-4 py-3 mb-8"
               style={{ backgroundColor: '#EDF4F0', border: '1px solid rgba(27,61,44,0.12)' }}
@@ -69,7 +76,7 @@ export default function HatSection() {
               </span>
             </div>
 
-            {/* Feature pills */}
+            {/* Feature pills *\/}
             <div className="flex flex-wrap gap-2 mb-8">
               {['Embroidered Logo', 'Adjustable Fit', 'Premium Build', 'Florida Edition'].map(feature => (
                 <span
@@ -82,7 +89,7 @@ export default function HatSection() {
               ))}
             </div>
 
-            {/* CTA */}
+            {/* CTA *\/}
             <div className="flex items-center gap-4">
               <a
                 href={HAT_PURCHASE_URL}
@@ -97,10 +104,10 @@ export default function HatSection() {
             </div>
           </div>
 
-        </div>
+        </div> */}
 
         {/* GoFundMe callout */}
-        <div className="mt-14 flex justify-center">
+        <div className="flex justify-center">
           <div
             className="w-full max-w-lg rounded-2xl px-6 py-6 flex flex-col items-center gap-3"
             style={{ backgroundColor: '#EDF4F0', border: '1px solid rgba(27,61,44,0.12)' }}

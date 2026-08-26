@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useInView } from '@/hooks/useInView';
 import ArtworkLightbox from '@/components/modals/ArtworkLightbox';
 
@@ -37,11 +37,6 @@ const ARTWORKS = [
     src:   '/images/art6.jpg',
     alt:   'NC State Wolfpack logo made from recycled golf tees — red, black, and white tees forming the Wolfpack insignia',
     title: 'NC State',
-  },
-  {
-    src:   '/images/art7.webp',
-    alt:   'The Masters golf tournament logo made from recycled golf tees — green and gold tees representing the Augusta National Invitational',
-    title: 'The Masters',
   },
   {
     src:   '/images/art8.webp',
@@ -116,6 +111,21 @@ export default function ArtworkCarousel({ onOpenInquiry }: ArtworkCarouselProps)
   const { ref: headRef, inView: headIn } = useInView();
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
+  // Pause the marquee's scroll animation whenever it's off-screen.
+  const marqueeRef = useRef<HTMLDivElement>(null);
+  const [onScreen, setOnScreen] = useState(false);
+
+  useEffect(() => {
+    const el = marqueeRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setOnScreen(entry.isIntersecting),
+      { threshold: 0.01 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   const openLightbox = (trackIndex: number) => {
     // Map duplicated track index back to original artwork index
     setLightboxIndex(trackIndex % ARTWORKS.length);
@@ -133,7 +143,7 @@ export default function ArtworkCarousel({ onOpenInquiry }: ArtworkCarouselProps)
     <>
       <section
         id="artwork"
-        className="py-20 sm:py-28 overflow-hidden"
+        className="pt-16 pb-14 sm:pt-20 sm:pb-16 overflow-hidden"
         style={{ backgroundColor: '#F5F0E8' }}
         aria-labelledby="artwork-heading"
       >
@@ -164,8 +174,12 @@ export default function ArtworkCarousel({ onOpenInquiry }: ArtworkCarouselProps)
         </div>
 
         {/* Infinite marquee */}
-        <div className="marquee-container">
-          <div className="marquee-track" aria-label="Artwork carousel">
+        <div ref={marqueeRef} className="marquee-container">
+          <div
+            className="marquee-track"
+            aria-label="Artwork carousel"
+            style={onScreen ? undefined : { animationPlayState: 'paused' }}
+          >
             {TRACK_ITEMS.map((artwork, i) => (
               <div key={i} className="flex-shrink-0 artwork-card-wrapper">
               <button
