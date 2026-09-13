@@ -149,10 +149,21 @@
 }
 
 /* "View" overlay + image scale on hover */
-.artwork-card:hover img {
+/* Real :hover only on mouse/trackpad devices — touch browsers leave :hover
+   stuck on the last-pressed card with no way to clear it. Touch gets the same
+   look from the JS-managed .is-active class instead (see ArtworkCarousel). */
+@media (hover: hover) and (pointer: fine) {
+  .artwork-card:hover img {
+    transform: scale(1.04);
+  }
+  .artwork-card:hover > div > div:last-child {
+    opacity: 1 !important;
+  }
+}
+.artwork-card-wrapper.is-active .artwork-card img {
   transform: scale(1.04);
 }
-.artwork-card:hover > div > div:last-child {
+.artwork-card-wrapper.is-active .artwork-card > div > div:last-child {
   opacity: 1 !important;
 }
 
@@ -323,6 +334,27 @@
   }
 }
 
+/* Artwork carousel — position is driven from JS (auto-scroll, drag, wheel,
+   arrow buttons) instead of the CSS keyframes, so the shared animation is
+   switched off here. touch-action: pan-y keeps vertical page scrolling on
+   touch devices while horizontal swipes drag the carousel. */
+.artwork-marquee {
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.artwork-marquee.is-dragging,
+.artwork-marquee.is-dragging .artwork-card {
+  cursor: grabbing !important;
+}
+.artwork-marquee .marquee-track {
+  animation: none;
+}
+.artwork-marquee img {
+  -webkit-user-drag: none;
+}
+
 /* Sponsor logo strip — tighter gap and quicker scroll on mobile, roomier/slower on larger screens.
    Spacing is a per-item margin, not `gap` — `gap` only sits *between* items
    (N-1 of them), so half the duplicated track's width lands half a gap short
@@ -411,19 +443,35 @@
 }
 
 /* When any card in the track is hovered, dim and shrink the rest */
-.marquee-track:hover .artwork-card-wrapper {
+@media (hover: hover) and (pointer: fine) {
+  .marquee-track:hover .artwork-card-wrapper {
+    transform: scale(0.94);
+    opacity: 0.68;
+  }
+
+  /* The hovered card pops forward */
+  .marquee-track:hover .artwork-card-wrapper:hover {
+    transform: scale(1.07) translateY(-8px);
+    opacity: 1;
+  }
+
+  /* Activate the radial glow on hover */
+  .marquee-track:hover .artwork-card-wrapper:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Touch equivalent of the hover state above — .has-active / .is-active are
+   toggled from JS so they can be removed once the card scrolls out of frame. */
+.marquee-track.has-active .artwork-card-wrapper {
   transform: scale(0.94);
   opacity: 0.68;
 }
-
-/* The hovered card pops forward */
-.marquee-track:hover .artwork-card-wrapper:hover {
+.marquee-track.has-active .artwork-card-wrapper.is-active {
   transform: scale(1.07) translateY(-8px);
   opacity: 1;
 }
-
-/* Activate the radial glow on hover */
-.marquee-track:hover .artwork-card-wrapper:hover::before {
+.marquee-track.has-active .artwork-card-wrapper.is-active::before {
   opacity: 1;
 }
 
