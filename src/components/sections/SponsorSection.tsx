@@ -60,7 +60,7 @@ const TIERS = [
   {
     icon:      Flag,
     name:      'Hole Sponsor',
-    hidden:    false,
+    hidden:    true,
     price:     '$250',
     exclusive: false,
     formId:    '2cb1b9db-6d76-4353-a653-3052f4bb975d',
@@ -89,7 +89,6 @@ const SPONSOR_LOGOS: { src: string; alt: string; spacer?: boolean }[] = [
   { src: '/images/retees sponsors/swans.png',       alt: 'Swans Multimedia' },
   { src: '/images/retees sponsors/michini.png',     alt: 'Michini Wealth Management' },
   { src: '/images/retees sponsors/window.png',      alt: 'Window Magic' },
-  { src: '/images/retees sponsors/flash.png',       alt: 'Flash Energy Drink' },
   { src: '/images/retees sponsors/tommys.png',      alt: "Tommy's Express Car Wash" },
   { src: '/images/retees sponsors/elevated.png',    alt: 'Elevated Boat Services' },
 ];
@@ -117,7 +116,7 @@ function SponsorLogoCarousel() {
   }, []);
 
   return (
-    <div ref={containerRef} className="marquee-container mb-12" aria-label="Our sponsors">
+    <div ref={containerRef} className="marquee-container" aria-label="Our sponsors">
       <div
         className="marquee-track sponsor-marquee-track"
         style={onScreen ? undefined : { animationPlayState: 'paused' }}
@@ -147,20 +146,20 @@ function TierCard({ tier, onOpenSponsor }: { tier: Tier; onOpenSponsor: (formId:
     <div
       className="rounded-2xl p-5 border flex flex-col transition-all hover:-translate-y-1"
       style={{
-        backgroundColor: tier.highlight ? '#1B3D2C' : '#FFFFFF',
-        borderColor:     tier.highlight ? '#1B3D2C' : 'rgba(27,61,44,0.10)',
-        boxShadow:       tier.highlight ? '0 16px 48px rgba(27,61,44,0.25)' : undefined,
+        backgroundColor: tier.highlight ? '#00132A' : '#FFFFFF',
+        borderColor:     tier.highlight ? '#00132A' : 'rgba(0,19,42,0.10)',
+        boxShadow:       tier.highlight ? '0 16px 48px rgba(0,19,42,0.25)' : undefined,
       }}
     >
       {/* Icon row */}
       <div className="flex items-center justify-between mb-4">
         <div
           className="w-9 h-9 rounded-xl flex items-center justify-center"
-          style={{ backgroundColor: tier.highlight ? 'rgba(255,255,255,0.15)' : '#EDF4F0' }}
+          style={{ backgroundColor: tier.highlight ? 'rgba(255,255,255,0.15)' : '#EDF2F8' }}
         >
           <tier.icon
             size={16}
-            style={{ color: tier.highlight ? '#DDB870' : '#1B3D2C' }}
+            style={{ color: tier.highlight ? '#DDB870' : '#00132A' }}
           />
         </div>
         {tier.exclusive && (
@@ -185,7 +184,7 @@ function TierCard({ tier, onOpenSponsor }: { tier: Tier; onOpenSponsor: (formId:
       </h3>
       <p
         className="font-display text-2xl font-bold mb-4"
-        style={{ color: tier.highlight ? '#DDB870' : '#1B3D2C' }}
+        style={{ color: tier.highlight ? '#DDB870' : '#00132A' }}
       >
         {tier.price}
       </p>
@@ -193,7 +192,7 @@ function TierCard({ tier, onOpenSponsor }: { tier: Tier; onOpenSponsor: (formId:
       {/* Divider */}
       <div
         className="w-full h-px mb-4"
-        style={{ backgroundColor: tier.highlight ? 'rgba(255,255,255,0.12)' : 'rgba(27,61,44,0.08)' }}
+        style={{ backgroundColor: tier.highlight ? 'rgba(255,255,255,0.12)' : 'rgba(0,19,42,0.08)' }}
       />
 
       {/* Perks */}
@@ -202,7 +201,7 @@ function TierCard({ tier, onOpenSponsor }: { tier: Tier; onOpenSponsor: (formId:
           <li key={perk} className="flex items-start gap-2 text-sm">
             <span
               className="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-[5px]"
-              style={{ backgroundColor: tier.highlight ? '#DDB870' : '#1B3D2C' }}
+              style={{ backgroundColor: tier.highlight ? '#DDB870' : '#00132A' }}
             />
             <span style={{ color: tier.highlight ? 'rgba(255,255,255,0.75)' : '#5E6560' }}>
               {perk}
@@ -220,8 +219,8 @@ function TierCard({ tier, onOpenSponsor }: { tier: Tier; onOpenSponsor: (formId:
           color:           '#FFFFFF',
         } : {
           backgroundColor: 'transparent',
-          borderColor:     'rgba(27,61,44,0.22)',
-          color:           '#1B3D2C',
+          borderColor:     'rgba(0,19,42,0.22)',
+          color:           '#00132A',
         }}
       >
         Sponsor Inquiry
@@ -243,7 +242,7 @@ export default function SponsorSection({ onOpenSponsor }: SponsorSectionProps) {
   return (
     <section
       id="sponsors"
-      className="pt-12 pb-14 sm:pt-16 sm:pb-20"
+      className="pt-10 pb-8 sm:pt-12 sm:pb-10"
       style={{ backgroundColor: '#FAFAF6' }}
       aria-labelledby="sponsor-heading"
     >
@@ -272,17 +271,17 @@ export default function SponsorSection({ onOpenSponsor }: SponsorSectionProps) {
         <SponsorLogoCarousel />
 
         {/* Sponsorship tiers */}
-        {visibleTiers.length === 1 ? (
+        {visibleTiers.length === 0 ? null : visibleTiers.length === 1 ? (
           <div
             ref={cardsRef as React.RefObject<HTMLDivElement>}
-            className={`reveal reveal-delay-1 ${cardsIn ? 'in-view' : ''} w-full max-w-sm mx-auto`}
+            className={`reveal reveal-delay-1 ${cardsIn ? 'in-view' : ''} w-full max-w-sm mx-auto mt-12`}
           >
             <TierCard tier={visibleTiers[0]} onOpenSponsor={onOpenSponsor} />
           </div>
         ) : (
           <div
             ref={cardsRef as React.RefObject<HTMLDivElement>}
-            className={`reveal reveal-delay-1 ${cardsIn ? 'in-view' : ''} grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5`}
+            className={`reveal reveal-delay-1 ${cardsIn ? 'in-view' : ''} grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-12`}
           >
             {visibleTiers.map(tier => (
               <TierCard key={tier.name} tier={tier} onOpenSponsor={onOpenSponsor} />

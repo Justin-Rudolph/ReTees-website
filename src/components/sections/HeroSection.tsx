@@ -4,6 +4,7 @@ import { useInView } from '@/hooks/useInView';
 
 interface HeroSectionProps {
   onOpenInquiry: () => void;
+  onOpenTour:    () => void;
 }
 
 function useCountUp(end: number, duration: number, active: boolean, delay = 0): number {
@@ -48,7 +49,7 @@ function useTypewriter(text: string, duration: number, active: boolean, delay = 
 
 const TYPEWRITER_TARGET = 'Made in USA';
 
-export default function HeroSection({ onOpenInquiry }: HeroSectionProps) {
+export default function HeroSection({ onOpenInquiry, onOpenTour }: HeroSectionProps) {
   const { ref, inView } = useInView();
   const { ref: statsRef, inView: statsInView } = useInView();
 
@@ -59,7 +60,7 @@ export default function HeroSection({ onOpenInquiry }: HeroSectionProps) {
   const showCursor = statsInView && typed.length < TYPEWRITER_TARGET.length;
 
   const STATS = [
-    { display: `${pct}%`,    label: 'Recycled Tees', desc: 'Sourced from local golf courses across Tampa' },
+    { display: `${pct}%`,    label: 'Recycled Tees', desc: 'Sourced from local Tampa golf courses' },
     { display: `${lbs}+ lbs`, label: 'Per Artwork',   desc: 'Sorted and hand-set into every frame'      },
     { display: `${litter.toLocaleString()} lbs`, label: 'Litter Removed', desc: 'And growing with every order' },
     { display: typed || ' ',         label: 'Proudly American',    desc: 'Handcrafted in Tampa, Florida', cursor: showCursor },
@@ -69,21 +70,17 @@ export default function HeroSection({ onOpenInquiry }: HeroSectionProps) {
     document.querySelector('#artwork')?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const scrollToTournament = () => {
-    document.querySelector('#tournament')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <section
       className="relative flex flex-col lg:flex-row min-h-[100svh] overflow-hidden"
-      style={{ backgroundColor: '#1B3D2C' }}
+      style={{ backgroundColor: '#00132A' }}
       aria-label="Hero"
     >
       {/* ── IMAGE PANEL — top on mobile, right on desktop ── */}
       <div
         className="relative order-1 lg:order-2 lg:w-[48%]"
         style={{
-          backgroundColor: '#1B3D2C',
+          backgroundColor: '#00132A',
           minHeight: 'clamp(44vw, 52vw, 360px)',
         }}
       >
@@ -97,19 +94,19 @@ export default function HeroSection({ onOpenInquiry }: HeroSectionProps) {
         {/* LEFT feather — desktop only, blends into text panel */}
         <div
           className="absolute inset-y-0 left-0 w-52 pointer-events-none hidden lg:block"
-          style={{ background: 'linear-gradient(to right, #1B3D2C 0%, transparent 100%)' }}
+          style={{ background: 'linear-gradient(to right, #00132A 0%, transparent 100%)' }}
         />
         {/* RIGHT edge fade — desktop only */}
         <div
           className="absolute inset-y-0 right-0 w-12 pointer-events-none hidden lg:block"
-          style={{ background: 'linear-gradient(to left, #1B3D2C 0%, transparent 100%)' }}
+          style={{ background: 'linear-gradient(to left, #00132A 0%, transparent 100%)' }}
         />
         {/* TOP fade — full width on all sizes, covers header overlap */}
         <div
           className="absolute top-0 inset-x-0 pointer-events-none"
           style={{
             height: 'clamp(80px, 18vw, 140px)',
-            background: 'linear-gradient(to bottom, #1B3D2C 0%, transparent 100%)',
+            background: 'linear-gradient(to bottom, #00132A 0%, transparent 100%)',
           }}
         />
         {/* BOTTOM fade — full width, blends into text content below */}
@@ -117,7 +114,7 @@ export default function HeroSection({ onOpenInquiry }: HeroSectionProps) {
           className="absolute bottom-0 inset-x-0 pointer-events-none"
           style={{
             height: 'clamp(80px, 18vw, 140px)',
-            background: 'linear-gradient(to top, #1B3D2C 0%, transparent 100%)',
+            background: 'linear-gradient(to top, #00132A 0%, transparent 100%)',
           }}
         />
 
@@ -148,7 +145,7 @@ export default function HeroSection({ onOpenInquiry }: HeroSectionProps) {
                    px-7 sm:px-12 pt-8 pb-14
                    lg:pt-0 lg:pb-0 lg:min-h-[100svh]"
         style={{
-          background: 'radial-gradient(ellipse at 72% 44%, #253F31 0%, #1B3D2C 68%)',
+          background: 'radial-gradient(ellipse at 72% 44%, #14304F 0%, #00132A 68%)',
         }}
       >
         {/* Subtle gold seam between panels — desktop only */}
@@ -199,27 +196,28 @@ export default function HeroSection({ onOpenInquiry }: HeroSectionProps) {
 
           {/* Body */}
           <p
-            className="text-sm sm:text-[0.9375rem] leading-relaxed mb-9 max-w-sm"
-            style={{ color: 'rgba(255,255,255,0.55)' }}
+            className="text-[0.9375rem] sm:text-base leading-relaxed mb-9 max-w-md"
+            style={{ color: 'rgba(255,255,255,0.80)' }}
           >
             Every piece is handcrafted from recycled golf tees — transformed into
             one-of-a-kind framed artwork that celebrates the game, the course,
             and the environment.
           </p>
 
-          {/* CTAs — mobile: stacked (inquire · tournament · artwork).
-              sm+: inquire + artwork on one row, tournament spanning beneath. */}
-          <div className="flex flex-col items-start sm:grid sm:grid-cols-[auto_auto] sm:justify-start gap-3">
+          {/* CTAs — mobile: stacked (inquire · artwork · tour), all as wide as
+              the widest (w-fit + stretch). sm+: inquire + artwork on one row,
+              tour spanning beneath. */}
+          <div className="flex flex-col items-stretch w-fit sm:w-auto sm:grid sm:grid-cols-[auto_auto] sm:justify-start gap-3">
             <button
               onClick={onOpenInquiry}
-              className="btn-sweep-dark order-1 inline-flex items-center text-sm font-semibold rounded-full px-6 py-3.5 transition-all hover:opacity-90 active:scale-95 cursor-pointer"
-              style={{ backgroundColor: '#FAFAF6', color: '#1B3D2C' }}
+              className="btn-sweep-dark order-1 inline-flex items-center justify-center border border-transparent text-sm font-semibold rounded-full px-6 py-3.5 transition-all hover:opacity-90 active:scale-95 cursor-pointer"
+              style={{ backgroundColor: '#FAFAF6', color: '#00132A' }}
             >
               Inquire About a Custom Piece
             </button>
             <button
               onClick={scrollToArtwork}
-              className="btn-sweep order-3 sm:order-2 inline-flex items-center gap-1.5 text-sm font-medium text-white rounded-full px-6 py-3.5 border transition-all cursor-pointer"
+              className="btn-sweep order-2 inline-flex items-center justify-center gap-1.5 text-sm font-medium text-white rounded-full px-6 py-3.5 border transition-all cursor-pointer"
               style={{ borderColor: 'rgba(255,255,255,0.26)' }}
               onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.07)')}
               onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
@@ -228,11 +226,11 @@ export default function HeroSection({ onOpenInquiry }: HeroSectionProps) {
               <ArrowDown size={13} />
             </button>
             <button
-              onClick={scrollToTournament}
-              className="btn-sweep order-2 sm:order-3 sm:col-span-2 w-auto sm:w-full inline-flex items-center justify-center gap-2 text-sm font-semibold rounded-full px-6 py-3.5 transition-all hover:opacity-90 active:scale-95 cursor-pointer"
-              style={{ backgroundColor: '#A87D2E', color: '#FFFFFF' }}
+              type="button"
+              onClick={onOpenTour}
+              className="btn-gold-shiny order-3 sm:col-span-2 sm:w-full inline-flex items-center justify-center gap-2 border border-transparent text-sm font-bold text-black rounded-full px-6 py-3.5 active:scale-95 cursor-pointer"
             >
-              View Tournament Details
+              Join the 2027 Tour Waitlist
               <ChevronRight size={14} />
             </button>
           </div>
@@ -240,11 +238,11 @@ export default function HeroSection({ onOpenInquiry }: HeroSectionProps) {
           {/* ── Stats ── */}
           <div
             ref={statsRef as React.RefObject<HTMLDivElement>}
-            className="mt-10 pt-8 grid grid-cols-2 sm:grid-cols-4 gap-y-6"
+            className="mt-10 pt-8 grid grid-cols-[repeat(2,minmax(0,10rem))] sm:grid-cols-[repeat(4,minmax(0,8rem))] justify-between gap-x-4 gap-y-6"
             style={{ borderTop: '1px solid rgba(255,255,255,0.10)' }}
           >
             {STATS.map((stat, i) => (
-              <div key={i} className="flex flex-col pr-4">
+              <div key={i} className="flex flex-col">
                 {/* Animated value */}
                 <p
                   className="font-display font-bold tabular-nums leading-none mb-1.5 flex items-baseline gap-px"
@@ -263,7 +261,7 @@ export default function HeroSection({ onOpenInquiry }: HeroSectionProps) {
                 <p className="text-[0.625rem] font-semibold uppercase tracking-widest mb-0.5 text-white">
                   {stat.label}
                 </p>
-                <p className="text-[0.625rem] leading-snug" style={{ color: 'rgba(255,255,255,0.40)' }}>
+                <p className="text-xs leading-snug" style={{ color: 'rgba(255,255,255,0.75)' }}>
                   {stat.desc}
                 </p>
               </div>

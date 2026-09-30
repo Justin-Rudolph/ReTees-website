@@ -19,7 +19,7 @@ export default function AboutSection() {
     <section
       id="about"
       className="pt-12 pb-14 sm:pt-16 sm:pb-20"
-      style={{ backgroundColor: '#FAFAF6' }}
+      style={{ backgroundColor: '#F5F0E8' }}
       aria-labelledby="about-heading"
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
@@ -29,7 +29,7 @@ export default function AboutSection() {
           {/* ── Left: sticky photo — no transform animation to prevent GPU compositing blur ── */}
           <div className="lg:sticky lg:top-28">
             <div className="relative rounded-2xl overflow-hidden shadow-xl"
-              style={{ border: '1px solid rgba(27,61,44,0.08)' }}
+              style={{ border: '1px solid rgba(0,19,42,0.08)' }}
             >
               <img
                 src="/images/self_portrait.webp"
@@ -40,7 +40,7 @@ export default function AboutSection() {
               {/* Name card gradient overlay */}
               <div
                 className="absolute bottom-0 left-0 right-0 px-5 py-5"
-                style={{ background: 'linear-gradient(to top, rgba(6,20,12,0.88) 0%, rgba(6,20,12,0.30) 60%, transparent 100%)' }}
+                style={{ background: 'linear-gradient(to top, rgba(0,10,24,0.88) 0%, rgba(0,10,24,0.30) 60%, transparent 100%)' }}
               >
                 <p className="font-display text-white font-semibold" style={{ fontSize: '1.15rem' }}>
                   Nik Schmidt
@@ -66,7 +66,7 @@ export default function AboutSection() {
             >
               Hi, I'm Nik Schmidt,
               <br />
-              <span style={{ color: '#1B3D2C' }}>founder of ReTees.</span>
+              <span style={{ color: '#00132A' }}>founder of ReTees.</span>
             </h2>
 
             {/* Paragraphs 1–2 */}
@@ -90,7 +90,7 @@ export default function AboutSection() {
             >
               <p
                 className="font-display font-semibold italic leading-snug"
-                style={{ fontSize: 'clamp(17px, 2vw, 22px)', color: '#1B3D2C', letterSpacing: '-0.2px' }}
+                style={{ fontSize: 'clamp(17px, 2vw, 22px)', color: '#00132A', letterSpacing: '-0.2px' }}
               >
                 "But deep down, I felt a conviction that this was where God was calling me in this chapter of my life."
               </p>
@@ -108,10 +108,10 @@ export default function AboutSection() {
             {/* Closing signature */}
             <div
               className="mt-10 pt-7 flex items-center gap-4 border-t"
-              style={{ borderColor: 'rgba(27,61,44,0.10)' }}
+              style={{ borderColor: 'rgba(0,19,42,0.10)' }}
             >
               <div>
-                <p className="font-display italic text-lg" style={{ color: '#1B3D2C' }}>
+                <p className="font-display italic text-lg" style={{ color: '#00132A' }}>
                   — Nik Schmidt
                 </p>
                 <p className="text-xs mt-0.5" style={{ color: '#9B9B9B' }}>

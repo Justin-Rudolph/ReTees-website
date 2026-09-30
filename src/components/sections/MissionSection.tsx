@@ -50,7 +50,7 @@ export default function MissionSection() {
             >
               Turning the course
               <br />
-              into <em style={{ color: '#1B3D2C' }}>canvas</em>
+              into <em style={{ color: '#00132A' }}>canvas</em>
             </h2>
             <p className="text-base leading-relaxed mb-5" style={{ color: '#5E6560' }}>
               ReTees was born from a simple idea: the thousands of golf tees left behind on
@@ -64,10 +64,10 @@ export default function MissionSection() {
             </p>
             <div
               className="inline-flex items-center gap-3 rounded-xl px-5 py-4"
-              style={{ backgroundColor: '#EDF4F0' }}
+              style={{ backgroundColor: '#EDF2F8' }}
             >
-              <Leaf size={18} style={{ color: '#1B3D2C', flexShrink: 0 }} />
-              <p className="text-sm font-medium" style={{ color: '#1B3D2C' }}>
+              <Leaf size={18} style={{ color: '#00132A', flexShrink: 0 }} />
+              <p className="text-sm font-medium" style={{ color: '#00132A' }}>
                 100% of materials sourced from recycled golf tees
               </p>
             </div>
@@ -85,15 +85,15 @@ export default function MissionSection() {
                   i === 0 ? 'sm:col-span-1' : ''
                 }`}
                 style={{
-                  borderColor: 'rgba(27,61,44,0.10)',
+                  borderColor: 'rgba(0,19,42,0.10)',
                   backgroundColor: i % 2 === 0 ? '#FAFAF6' : '#FFFFFF',
                 }}
               >
                 <div
                   className="w-9 h-9 rounded-lg flex items-center justify-center mb-3"
-                  style={{ backgroundColor: '#EDF4F0' }}
+                  style={{ backgroundColor: '#EDF2F8' }}
                 >
-                  <pillar.icon size={17} style={{ color: '#1B3D2C' }} />
+                  <pillar.icon size={17} style={{ color: '#00132A' }} />
                 </div>
                 <h3
                   className="font-display text-lg font-semibold mb-1.5"

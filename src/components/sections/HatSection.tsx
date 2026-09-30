@@ -12,7 +12,7 @@ export default function HatSection() {
     <section
       id="shop"
       className="py-14 sm:py-16"
-      style={{ backgroundColor: '#F5F0E8' }}
+      style={{ backgroundColor: '#FAFAF6' }}
       aria-labelledby="shop-heading"
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
@@ -39,7 +39,7 @@ export default function HatSection() {
               {/* Price badge *\/}
               <div
                 className="absolute top-4 right-4 rounded-xl px-4 py-2 shadow-lg"
-                style={{ backgroundColor: '#1B3D2C' }}
+                style={{ backgroundColor: '#00132A' }}
               >
                 <p className="font-display text-xl font-bold text-white">$30</p>
               </div>
@@ -68,9 +68,9 @@ export default function HatSection() {
             {/* Recycled stat *\/}
             <div
               className="inline-flex items-center gap-3 rounded-xl px-4 py-3 mb-8"
-              style={{ backgroundColor: '#EDF4F0', border: '1px solid rgba(27,61,44,0.12)' }}
+              style={{ backgroundColor: '#EDF2F8', border: '1px solid rgba(0,19,42,0.12)' }}
             >
-              <span className="font-display text-2xl font-bold" style={{ color: '#1B3D2C' }}>2.5</span>
+              <span className="font-display text-2xl font-bold" style={{ color: '#00132A' }}>2.5</span>
               <span className="text-sm" style={{ color: '#5E6560' }}>
                 recycled water bottles in every hat
               </span>
@@ -82,7 +82,7 @@ export default function HatSection() {
                 <span
                   key={feature}
                   className="text-xs font-medium px-3 py-1.5 rounded-full border"
-                  style={{ color: '#1B3D2C', borderColor: 'rgba(27,61,44,0.20)', backgroundColor: '#FFFFFF' }}
+                  style={{ color: '#00132A', borderColor: 'rgba(0,19,42,0.20)', backgroundColor: '#FFFFFF' }}
                 >
                   {feature}
                 </span>
@@ -96,7 +96,7 @@ export default function HatSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-sweep inline-flex items-center gap-2 text-sm font-semibold text-white rounded-full px-8 py-3.5 transition-all hover:opacity-90 active:scale-95"
-                style={{ backgroundColor: '#1B3D2C' }}
+                style={{ backgroundColor: '#00132A' }}
               >
                 Purchase Hat — $30
                 <ExternalLink size={14} />
@@ -110,9 +110,9 @@ export default function HatSection() {
         <div className="flex justify-center">
           <div
             className="w-full max-w-lg rounded-2xl px-6 py-6 flex flex-col items-center gap-3"
-            style={{ backgroundColor: '#EDF4F0', border: '1px solid rgba(27,61,44,0.12)' }}
+            style={{ backgroundColor: '#EDF2F8', border: '1px solid rgba(0,19,42,0.12)' }}
           >
-            <p className="text-sm font-bold tracking-wide uppercase" style={{ color: '#1B3D2C' }}>
+            <p className="text-sm font-bold tracking-wide uppercase" style={{ color: '#00132A' }}>
               Want to support but don't golf?
             </p>
             <p className="text-sm text-center leading-relaxed max-w-sm" style={{ color: '#5E6560' }}>
@@ -123,7 +123,7 @@ export default function HatSection() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn-sweep inline-flex items-center gap-2 text-sm font-semibold text-white rounded-full px-7 py-3 mt-1 transition-all hover:opacity-90"
-              style={{ backgroundColor: '#1B3D2C' }}
+              style={{ backgroundColor: '#00132A' }}
             >
               Donate on GoFundMe
               <ChevronRight size={14} />

@@ -1,49 +1,50 @@
 import { X } from 'lucide-react';
 import { useHubSpotForm } from '@/hooks/useHubSpotForm';
 
-function SponsorSkeleton() {
+function TourWaitlistSkeleton() {
   return (
     <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-2">
+        <div className="hs-skeleton h-3 w-full" />
+        <div className="hs-skeleton h-3 w-4/5" />
+      </div>
       <div className="grid grid-cols-2 gap-4">
         <div className="flex flex-col gap-2">
           <div className="hs-skeleton h-3 w-16" />
           <div className="hs-skeleton h-11" />
         </div>
         <div className="flex flex-col gap-2">
-          <div className="hs-skeleton h-3 w-20" />
-          <div className="hs-skeleton h-11" />
-        </div>
-      </div>
-      <div className="grid grid-cols-2 gap-4">
-        <div className="flex flex-col gap-2">
-          <div className="hs-skeleton h-3 w-14" />
-          <div className="hs-skeleton h-11" />
-        </div>
-        <div className="flex flex-col gap-2">
-          <div className="hs-skeleton h-3 w-24" />
+          <div className="hs-skeleton h-3 w-16" />
           <div className="hs-skeleton h-11" />
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <div className="hs-skeleton h-3 w-36" />
+        <div className="hs-skeleton h-3 w-12" />
         <div className="hs-skeleton h-11" />
       </div>
       <div className="flex flex-col gap-2">
-        <div className="hs-skeleton h-3 w-28" />
-        <div className="hs-skeleton h-24" />
+        <div className="hs-skeleton h-3 w-24" />
+        <div className="hs-skeleton h-11" />
+      </div>
+      <div className="flex flex-col gap-2">
+        <div className="hs-skeleton h-3 w-20" />
+        <div className="hs-skeleton h-11" />
+      </div>
+      <div className="flex flex-col gap-3">
+        <div className="hs-skeleton h-4 w-3/4" />
+        <div className="hs-skeleton h-4 w-full" />
       </div>
       <div className="hs-skeleton h-12 rounded-full mt-1" />
     </div>
   );
 }
 
-interface SponsorModalProps {
+interface TourWaitlistModalProps {
   open:    boolean;
   onClose: () => void;
-  formId:  string;
 }
 
-export default function SponsorModal({ open, onClose, formId }: SponsorModalProps) {
+export default function TourWaitlistModal({ open, onClose }: TourWaitlistModalProps) {
   const { loaded, formRef } = useHubSpotForm(open);
 
   if (!open) return null;
@@ -53,7 +54,7 @@ export default function SponsorModal({ open, onClose, formId }: SponsorModalProp
       className="fixed inset-0 z-[100] flex items-center justify-center p-4"
       role="dialog"
       aria-modal="true"
-      aria-labelledby="sponsor-modal-title"
+      aria-labelledby="tour-waitlist-modal-title"
     >
       {/* Backdrop */}
       <div
@@ -66,7 +67,7 @@ export default function SponsorModal({ open, onClose, formId }: SponsorModalProp
       {/* Panel — fixed height so it never grows as the iframe loads */}
       <div
         className="relative w-full max-w-xl flex flex-col rounded-2xl shadow-2xl overflow-hidden"
-        style={{ backgroundColor: '#FFFFFF', height: 'min(620px, 92vh)' }}
+        style={{ backgroundColor: '#FFFFFF', height: 'min(660px, 92vh)' }}
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
@@ -76,14 +77,14 @@ export default function SponsorModal({ open, onClose, formId }: SponsorModalProp
         >
           <div>
             <h2
-              id="sponsor-modal-title"
+              id="tour-waitlist-modal-title"
               className="font-display text-xl font-semibold"
               style={{ color: '#1A1A1A' }}
             >
-              Sponsorship Inquiry
+              2027 Tour Pre-Registration
             </h2>
             <p className="text-xs mt-0.5" style={{ color: '#9B9B9B' }}>
-              Tell us about your company and sponsorship interest.
+              Join the waitlist — be first to know when registration opens.
             </p>
           </div>
           <button
@@ -110,7 +111,7 @@ export default function SponsorModal({ open, onClose, formId }: SponsorModalProp
               zIndex: 1,
             }}
           >
-            <SponsorSkeleton />
+            <TourWaitlistSkeleton />
           </div>
 
           {/* HubSpot form */}
@@ -119,7 +120,7 @@ export default function SponsorModal({ open, onClose, formId }: SponsorModalProp
               ref={formRef}
               className="hs-form-frame"
               data-region="na2"
-              data-form-id={formId}
+              data-form-id="de823cf9-8551-497a-9f74-25c00d257397"
               data-portal-id="245452949"
             />
           </div>

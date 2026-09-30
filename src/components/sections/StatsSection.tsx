@@ -94,7 +94,7 @@ export default function StatsSection() {
   return (
     <section
       className="py-10 sm:py-12"
-      style={{ backgroundColor: '#1B3D2C' }}
+      style={{ backgroundColor: '#00132A' }}
       aria-label="Sustainability impact statistics"
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
@@ -107,7 +107,7 @@ export default function StatsSection() {
             <div
               key={i}
               className="flex flex-col items-center text-center px-4 sm:px-6 py-8"
-              style={{ backgroundColor: '#1B3D2C' }}
+              style={{ backgroundColor: '#00132A' }}
             >
               {/* Animated value */}
               <p
