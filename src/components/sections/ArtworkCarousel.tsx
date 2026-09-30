@@ -5,112 +5,112 @@ import ArtworkLightbox from '@/components/modals/ArtworkLightbox';
 
 const ARTWORKS = [
   {
-    src:   '/images/art0.jpg',
+    src:   '/images/art/art0.jpg',
     alt:   'Bob Does Sports logo made from recycled golf tees — branding for the popular golf YouTube channel hosted by Bobby Fairways and the Breezy Golf crew',
     title: 'Bob Does Sports',
   },
   {
-    src:   '/images/art1.jpg',
+    src:   '/images/art/art1.jpg',
     alt:   'American flag made from recycled golf tees — red, white, and blue tees arranged in the stars and stripes pattern in a matted frame',
     title: 'American Flag',
   },
   {
-    src:   '/images/art2.jpg',
+    src:   '/images/art/art2.jpg',
     alt:   'Florida Gators logo made from recycled golf tees — orange and blue tees forming the interlocking UF in a framed display',
     title: 'Florida Gators',
   },
   {
-    src:   '/images/art3.jpg',
+    src:   '/images/art/art3.jpg',
     alt:   'Florida State Seminoles spear logo made from recycled golf tees — garnet and gold tees on a dark background in a matted frame',
     title: 'FSU Spear',
   },
   {
-    src:   '/images/art4.webp',
+    src:   '/images/art/art4.webp',
     alt:   'East Carolina University Pirates logo made from recycled golf tees — purple and gold tees forming the ECU Pirates insignia',
     title: 'ECU Pirates',
   },
   {
-    src:   '/images/art5.jpg',
+    src:   '/images/art/art5.jpg',
     alt:   'Florida State Seminoles Chief Osceola logo made from recycled golf tees — garnet and gold tees in a framed display',
     title: 'Florida Seminoles',
   },
   {
-    src:   '/images/art6.jpg',
+    src:   '/images/art/art6.jpg',
     alt:   'NC State Wolfpack logo made from recycled golf tees — red, black, and white tees forming the Wolfpack insignia',
     title: 'NC State',
   },
   {
-    src:   '/images/art8.webp',
+    src:   '/images/art/art8.webp',
     alt:   'Ohio State Buckeyes logo made from recycled golf tees — scarlet and gray tees forming the Block O in a matted frame',
     title: 'Ohio State',
   },
   {
-    src:   '/images/art9.jpg',
+    src:   '/images/art/art9.jpg',
     alt:   'Oak Valley Golf Course logo made from recycled golf tees — green tees arranged in the course logo design',
     title: 'Oak Valley',
   },
   {
-    src:   '/images/art10.jpg',
+    src:   '/images/art/art10.jpg',
     alt:   'Custom monogram initials made from recycled golf tees — personalized letter artwork in a framed display',
     title: 'Custom Initials',
   },
   {
-    src:   '/images/art11.webp',
+    src:   '/images/art/art11.webp',
     alt:   'Milwaukee logo made from recycled golf tees — team colors rendered in recycled tee artwork in a framed display',
     title: 'Milwaukee',
   },
   {
-    src:   '/images/art12.jpg',
+    src:   '/images/art/art12.jpg',
     alt:   'University of Utah Utes logo made from recycled golf tees — red and white tees forming the Utes block U insignia',
     title: 'Utah Utes',
   },
   {
-    src:   '/images/art13.webp',
+    src:   '/images/art/art13.webp',
     alt:   'University of Kentucky logo made from recycled golf tees — blue and white tees in a matted frame',
     title: 'University of Kentucky',
   },
   {
-    src:   '/images/art14.webp',
+    src:   '/images/art/art14.webp',
     alt:   'University of Miami Hurricanes U logo made from recycled golf tees — orange, green, and white tees in a framed display',
     title: 'University of Miami',
   },
   {
-    src:   '/images/art15.webp',
+    src:   '/images/art/art15.webp',
     alt:   'Miami Ohio RedHawks logo made from recycled golf tees — red and white tees forming the RedHawks insignia in a framed display',
     title: 'Miami Ohio',
   },
   {
-    src:   '/images/art16.jpg',
+    src:   '/images/art/art16.jpg',
     alt:   'Pelican XC logo made from recycled golf tees — black and blue tees forming a pelican silhouette with script lettering in a framed display',
     title: 'Pelican XC',
   },
   {
-    src:   '/images/art17.jpg',
+    src:   '/images/art/art17.jpg',
     alt:   'Golden retriever portrait made from recycled golf tees — tan and black tees forming the dog’s face, ears, and nose in a dark wood frame',
     title: 'Golden Retriever',
   },
   {
-    src:   '/images/art18.jpg',
+    src:   '/images/art/art18.jpg',
     alt:   'Black Labrador retriever made from recycled golf tees — black tees with a red collar accent and an engraved "2026 U.S. Girls\' Junior Champion" nameplate in a black frame',
     title: 'U.S. Girls Junior Champion',
   },
   {
-    src:   '/images/art19.jpg',
+    src:   '/images/art/art19.jpg',
     alt:   'Company Logo made from recycled golf tees — blue and black tees outlining a gator company logo above "SSD" and "SFL7" lettering in a black frame',
     title: 'Company Logo',
   },
   {
-    src:   '/images/art20.jpg',
+    src:   '/images/art/art20.jpg',
     alt:   'Phoenix Suns retro logo made from recycled golf tees — blue "PHOENIX SUNS" lettering around an orange basketball on a red sunburst in a gold frame',
     title: 'Phoenix Suns',
   },
   {
-    src:   '/images/art21.jpg',
+    src:   '/images/art/art21.jpg',
     alt:   'Rally in the Valley Champion artwork made from recycled golf tees — black and white tees forming a moonshine jug with "CHAMPION" lettering in a black frame',
     title: 'Rally in the Valley Champion',
   },
   {
-    src:   '/images/art22.jpeg',
+    src:   '/images/art/art22.jpeg',
     alt:   'Rally in the Valley Sweetens Cove artwork made from recycled golf tees — multicolor tees forming a moonshine jug with "SWEETENS COVE" lettering and paint splatter in a gold frame',
     title: 'Sweetens Cove',
   },
@@ -411,7 +411,7 @@ export default function ArtworkCarousel({ onOpenInquiry }: ArtworkCarouselProps)
     <>
       <section
         id="artwork"
-        className="pt-16 pb-14 sm:pt-20 sm:pb-16 overflow-hidden"
+        className="pt-10 pb-8 sm:pt-12 sm:pb-10 overflow-hidden"
         style={{ backgroundColor: '#F5F0E8' }}
         aria-labelledby="artwork-heading"
       >
@@ -434,7 +434,7 @@ export default function ArtworkCarousel({ onOpenInquiry }: ArtworkCarouselProps)
             <button
               onClick={onOpenInquiry}
               className="btn-sweep self-start sm:self-auto text-sm font-medium text-white rounded-full px-7 py-3 transition-all hover:opacity-90 active:scale-95"
-              style={{ backgroundColor: '#1B3D2C', flexShrink: 0 }}
+              style={{ backgroundColor: '#00132A', flexShrink: 0 }}
             >
               Start Your Custom Piece
             </button>
@@ -469,7 +469,7 @@ export default function ArtworkCarousel({ onOpenInquiry }: ArtworkCarouselProps)
                 className="overflow-hidden rounded-xl bg-white text-left artwork-card block"
                 style={{
                   width:  '268px',
-                  border: '1px solid rgba(27,61,44,0.07)',
+                  border: '1px solid rgba(0,19,42,0.07)',
                   cursor: 'pointer',
                 }}
                 onClick={() => openLightbox(i)}
@@ -492,7 +492,7 @@ export default function ArtworkCarousel({ onOpenInquiry }: ArtworkCarouselProps)
                   {/* Hover overlay hint */}
                   <div
                     className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300"
-                    style={{ backgroundColor: 'rgba(6,18,10,0.45)' }}
+                    style={{ backgroundColor: 'rgba(0,9,22,0.45)' }}
                     aria-hidden="true"
                   >
                     <span
@@ -523,7 +523,7 @@ export default function ArtworkCarousel({ onOpenInquiry }: ArtworkCarouselProps)
             onClick={() => nudge(-1)}
             aria-label="Previous artwork"
             aria-controls="artwork-track"
-            className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-11 h-11 rounded-full bg-white text-[#1B3D2C] border border-[rgba(27,61,44,0.12)] shadow-[0_6px_20px_rgba(6,18,10,0.14)] transition-all hover:bg-[#1B3D2C] hover:text-white hover:scale-105 active:scale-95"
+            className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-11 h-11 rounded-full bg-white text-[#00132A] border border-[rgba(0,19,42,0.12)] shadow-[0_6px_20px_rgba(0,9,22,0.14)] transition-all hover:bg-[#00132A] hover:text-white hover:scale-105 active:scale-95"
           >
             <ChevronLeft className="w-5 h-5" aria-hidden="true" />
           </button>
@@ -532,7 +532,7 @@ export default function ArtworkCarousel({ onOpenInquiry }: ArtworkCarouselProps)
             onClick={() => nudge(1)}
             aria-label="Next artwork"
             aria-controls="artwork-track"
-            className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-11 h-11 rounded-full bg-white text-[#1B3D2C] border border-[rgba(27,61,44,0.12)] shadow-[0_6px_20px_rgba(6,18,10,0.14)] transition-all hover:bg-[#1B3D2C] hover:text-white hover:scale-105 active:scale-95"
+            className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-11 h-11 rounded-full bg-white text-[#00132A] border border-[rgba(0,19,42,0.12)] shadow-[0_6px_20px_rgba(0,9,22,0.14)] transition-all hover:bg-[#00132A] hover:text-white hover:scale-105 active:scale-95"
           >
             <ChevronRight className="w-5 h-5" aria-hidden="true" />
           </button>

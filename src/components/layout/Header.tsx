@@ -3,9 +3,9 @@ import { Menu, X } from 'lucide-react';
 
 const NAV_LINKS = [
   { label: 'Artwork',    href: '#artwork'    },
-  { label: 'About',      href: '#about'      },
   { label: 'Tournament', href: '#tournament' },
   { label: 'Sponsors',   href: '#sponsors'   },
+  { label: 'About',      href: '#about'      },
   // Shop temporarily disabled — HatSection's shop content is commented out.
   // { label: 'Shop',       href: '#shop'       },
   { label: 'Contact',    href: '#contact'    },
@@ -13,9 +13,10 @@ const NAV_LINKS = [
 
 interface HeaderProps {
   onOpenInquiry: () => void;
+  onOpenTour: () => void;
 }
 
-export default function Header({ onOpenInquiry }: HeaderProps) {
+export default function Header({ onOpenInquiry, onOpenTour }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -38,7 +39,7 @@ export default function Header({ onOpenInquiry }: HeaderProps) {
         background: 'rgba(245, 240, 232, 0.96)',
         backdropFilter: 'blur(14px)',
         WebkitBackdropFilter: 'blur(14px)',
-        boxShadow: '0 1px 0 rgba(27,61,44,0.08)',
+        boxShadow: '0 1px 0 rgba(0,19,42,0.08)',
       } : {
         /* Subtle gradient anchors the header over the dark hero */
         background: 'linear-gradient(180deg, rgba(0,0,0,0.28) 0%, transparent 100%)',
@@ -64,11 +65,12 @@ export default function Header({ onOpenInquiry }: HeaderProps) {
                 maxWidth: '100%',
               }}
             >
-              {/* max constraints + auto dimensions shrink the logo proportionally when space is tight */}
+              {/* Fixed 92px (≈44px tall) box with the logo's aspect ratio, so the white plaque
+                  is full size before the image loads; maxWidth still shrinks it when space is tight */}
               <img
                 src="/images/logo.png"
                 alt="ReTees"
-                style={{ maxHeight: '44px', maxWidth: '100%', width: 'auto', height: 'auto', display: 'block' }}
+                style={{ width: '92px', maxWidth: '100%', height: 'auto', aspectRatio: '1762 / 841', display: 'block' }}
               />
             </div>
           </a>
@@ -94,7 +96,7 @@ export default function Header({ onOpenInquiry }: HeaderProps) {
               onClick={onOpenInquiry}
               className="btn-sweep hidden lg:inline-flex items-center text-sm font-medium rounded-full px-5 py-2.5 transition-all duration-200 hover:opacity-90 active:scale-95"
               style={scrolled ? {
-                backgroundColor: '#1B3D2C',
+                backgroundColor: '#00132A',
                 color: '#FFFFFF',
               } : {
                 backgroundColor: 'rgba(255,255,255,0.15)',
@@ -106,35 +108,29 @@ export default function Header({ onOpenInquiry }: HeaderProps) {
               Custom Piece
             </button>
 
-            {/* Mobile quick links */}
-            {[
-              { label: 'Tournament', href: '#tournament' },
-              { label: 'Sponsors',   href: '#sponsors'   },
-            ].map(link => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => scrollTo(e, link.href)}
-                className="lg:hidden whitespace-nowrap text-xs font-medium rounded-full px-3 py-1.5 transition-all duration-200 hover:opacity-90 active:scale-95"
-                style={scrolled ? {
-                  backgroundColor: '#1B3D2C',
-                  color: '#FFFFFF',
-                } : {
-                  backgroundColor: 'rgba(255,255,255,0.15)',
-                  color: '#FFFFFF',
-                  border: '1px solid rgba(255,255,255,0.35)',
-                  backdropFilter: 'blur(8px)',
-                }}
-              >
-                {link.label}
-              </a>
-            ))}
+            {/* Desktop gold CTA */}
+            <button
+              type="button"
+              onClick={onOpenTour}
+              className="btn-gold-shiny hidden lg:inline-flex items-center text-sm font-bold text-black rounded-full px-5 py-2.5 active:scale-95"
+            >
+              2027 Tour
+            </button>
+
+            {/* Mobile gold chip */}
+            <button
+              type="button"
+              onClick={onOpenTour}
+              className="btn-gold-shiny lg:hidden whitespace-nowrap text-xs font-bold text-black rounded-full px-3 py-1.5 active:scale-95"
+            >
+              2027 Tour
+            </button>
 
             {/* Mobile hamburger */}
             <button
               onClick={() => setMenuOpen(v => !v)}
               className="lg:hidden p-2 rounded-md transition-colors"
-              style={{ color: scrolled ? '#1B3D2C' : '#FFFFFF' }}
+              style={{ color: scrolled ? '#00132A' : '#FFFFFF' }}
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={menuOpen}
               aria-controls="mobile-nav"
@@ -177,9 +173,17 @@ export default function Header({ onOpenInquiry }: HeaderProps) {
             onClick={() => { onOpenInquiry(); setMenuOpen(false); }}
             tabIndex={menuOpen ? undefined : -1}
             className="btn-sweep mt-4 w-full text-sm font-medium text-white rounded-full py-3 transition-all hover:opacity-90"
-            style={{ backgroundColor: '#1B3D2C' }}
+            style={{ backgroundColor: '#00132A' }}
           >
             Custom Piece
+          </button>
+          <button
+            type="button"
+            onClick={() => { onOpenTour(); setMenuOpen(false); }}
+            tabIndex={menuOpen ? undefined : -1}
+            className="btn-gold-shiny mt-3 w-full text-center text-sm font-bold text-black rounded-full py-3"
+          >
+            2027 Tour
           </button>
         </nav>
       </div>

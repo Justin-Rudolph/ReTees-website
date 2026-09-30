@@ -37,9 +37,9 @@ function IconX({ size = 18 }: { size?: number }) {
 
 const QUICK_LINKS = [
   { label: 'Artwork',    href: '#artwork'    },
-  { label: 'About',      href: '#about'      },
   { label: 'Tournament', href: '#tournament' },
   { label: 'Sponsors',   href: '#sponsors'   },
+  { label: 'About',      href: '#about'      },
   // Shop temporarily disabled — HatSection's shop content is commented out.
   // { label: 'Shop',       href: '#shop'       },
 ];
@@ -55,13 +55,13 @@ export default function Footer({ onOpenInquiry }: FooterProps) {
   };
 
   return (
-    <footer id="contact" style={{ scrollMarginTop: '80px' }}>
+    <footer id="contact">
       {/* Contact CTA band */}
       <div
-        className="py-20 px-5 sm:px-8 text-center"
-        style={{ backgroundColor: '#1B3D2C', color: '#FAFAF6' }}
+        className="py-12 sm:py-16 px-5 sm:px-8 text-center"
+        style={{ backgroundColor: '#00132A', color: '#FAFAF6' }}
       >
-        <p className="section-label mb-4 opacity-60" style={{ color: '#A8C8B8' }}>
+        <p className="section-label mb-4 opacity-60" style={{ color: '#A3B8D6' }}>
           Start a conversation
         </p>
         <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-tight mb-5">
@@ -77,7 +77,7 @@ export default function Footer({ onOpenInquiry }: FooterProps) {
           <button
             onClick={onOpenInquiry}
             className="btn-sweep-dark text-sm font-medium rounded-full px-7 py-3 transition-all hover:opacity-90 active:scale-95"
-            style={{ backgroundColor: '#FAFAF6', color: '#1B3D2C' }}
+            style={{ backgroundColor: '#FAFAF6', color: '#00132A' }}
           >
             Inquire Now
           </button>
@@ -94,7 +94,7 @@ export default function Footer({ onOpenInquiry }: FooterProps) {
       {/* Footer bar */}
       <div
         className="px-5 sm:px-8 py-10"
-        style={{ backgroundColor: '#0A1F15' }}
+        style={{ backgroundColor: '#000A19' }}
       >
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 pb-8 border-b" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
@@ -108,7 +108,7 @@ export default function Footer({ onOpenInquiry }: FooterProps) {
                 <img
                   src="/images/logo.png"
                   alt="ReTees"
-                  style={{ height: '26px', width: 'auto', display: 'block' }}
+                  style={{ height: '26px', width: 'auto', aspectRatio: '1762 / 841', display: 'block' }}
                 />
               </div>
               <p className="text-xs leading-relaxed mb-4" style={{ color: 'rgba(255,255,255,0.45)' }}>
@@ -160,7 +160,7 @@ export default function Footer({ onOpenInquiry }: FooterProps) {
 
             {/* Quick links */}
             <div>
-              <p className="text-xs font-medium tracking-widest uppercase mb-4" style={{ color: '#A8C8B8' }}>
+              <p className="text-xs font-medium tracking-widest uppercase mb-4" style={{ color: '#A3B8D6' }}>
                 Navigation
               </p>
               <nav className="flex flex-col gap-2.5" aria-label="Footer navigation">
@@ -180,7 +180,7 @@ export default function Footer({ onOpenInquiry }: FooterProps) {
 
             {/* Contact */}
             <div>
-              <p className="text-xs font-medium tracking-widest uppercase mb-4" style={{ color: '#A8C8B8' }}>
+              <p className="text-xs font-medium tracking-widest uppercase mb-4" style={{ color: '#A3B8D6' }}>
                 Contact
               </p>
               <div className="flex flex-col gap-3">

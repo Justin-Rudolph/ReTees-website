@@ -55,7 +55,7 @@ export default function ArtworkLightbox({
       {/* Backdrop */}
       <div
         className="absolute inset-0 cursor-pointer"
-        style={{ backgroundColor: 'rgba(4, 14, 8, 0.95)', backdropFilter: 'blur(8px)' }}
+        style={{ backgroundColor: 'rgba(0, 6, 16, 0.95)' }}
         onClick={onClose}
         aria-hidden="true"
       />

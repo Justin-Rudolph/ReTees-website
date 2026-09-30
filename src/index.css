@@ -12,9 +12,9 @@
   --color-rt-white:       #FAFAF6;
   --color-rt-cream:       #F5F0E8;
   --color-rt-linen:       #EAE1D0;
-  --color-rt-green:       #1B3D2C;
-  --color-rt-green-mid:   #2F6145;
-  --color-rt-green-pale:  #EDF4F0;
+  --color-rt-green:       #00132A;
+  --color-rt-green-mid:   #1A4A80;
+  --color-rt-green-pale:  #EDF2F8;
   --color-rt-gold:        #A87D2E;
   --color-rt-ink:         #1A1A1A;
   --color-rt-dim:         #5E6560;
@@ -27,18 +27,18 @@
   --card-foreground:             #1A1A1A;
   --popover:                     #FFFFFF;
   --popover-foreground:          #1A1A1A;
-  --primary:                     #1B3D2C;
+  --primary:                     #00132A;
   --primary-foreground:          #FAFAF6;
   --secondary:                   #F5F0E8;
   --secondary-foreground:        #1A1A1A;
   --muted:                       #F5F0E8;
   --muted-foreground:            #5E6560;
-  --accent:                      #EDF4F0;
-  --accent-foreground:           #1B3D2C;
+  --accent:                      #EDF2F8;
+  --accent-foreground:           #00132A;
   --destructive:                 oklch(0.577 0.245 27.325);
-  --border:                      rgba(27, 61, 44, 0.12);
-  --input:                       rgba(27, 61, 44, 0.12);
-  --ring:                        #1B3D2C;
+  --border:                      rgba(0, 19, 42, 0.12);
+  --input:                       rgba(0, 19, 42, 0.12);
+  --ring:                        #00132A;
   --radius:                      0.375rem;
   --color-background:            var(--background);
   --color-foreground:            var(--foreground);
@@ -67,7 +67,6 @@
 
 @layer base {
   * { @apply border-border outline-ring/50; }
-  html { scroll-behavior: smooth; }
   body {
     background-color: var(--background);
     color: var(--foreground);
@@ -96,33 +95,33 @@
 /* ── Artwork placeholder backgrounds ──
    TODO: Replace each .art-bg-* background with a real <img> tag.
    Swap the CSS class for an <img src="/images/artwork-N.jpg" /> element. */
-.art-bg-1 { background: linear-gradient(135deg, #1B3D2C 0%, #2F6145 55%, #4A8C65 100%); }
+.art-bg-1 { background: linear-gradient(135deg, #00132A 0%, #1A4A80 55%, #4F78AD 100%); }
 .art-bg-2 { background: linear-gradient(150deg, #F5F0E8 0%, #D4C9B0 60%, #BFB090 100%); }
 .art-bg-3 { background: linear-gradient(120deg, #A87D2E 0%, #C8A050 50%, #DDB870 100%); }
-.art-bg-4 { background: linear-gradient(160deg, #0A1F15 0%, #1B3D2C 55%, #2F6145 100%); }
-.art-bg-5 { background: linear-gradient(135deg, #EDF4F0 0%, #C0D8CA 60%, #9ABFAD 100%); }
-.art-bg-6 { background: linear-gradient(165deg, #2C3E35 0%, #1B3D2C 50%, #3A6B50 100%); }
+.art-bg-4 { background: linear-gradient(160deg, #000A19 0%, #00132A 55%, #1A4A80 100%); }
+.art-bg-5 { background: linear-gradient(135deg, #EDF2F8 0%, #BCCBE0 60%, #95ADCF 100%); }
+.art-bg-6 { background: linear-gradient(165deg, #26374F 0%, #00132A 50%, #33609A 100%); }
 
 /* TODO: Replace .hero-art-bg with a real hero artwork image */
 .hero-art-bg {
   background:
     radial-gradient(circle at 30% 70%, rgba(168, 125, 46, 0.35) 0%, transparent 45%),
-    radial-gradient(circle at 75% 25%, rgba(47, 97, 69, 0.45) 0%, transparent 40%),
-    linear-gradient(145deg, #1B3D2C 0%, #2F6145 50%, #1A3825 100%);
+    radial-gradient(circle at 75% 25%, rgba(26, 74, 128, 0.45) 0%, transparent 40%),
+    linear-gradient(145deg, #00132A 0%, #1A4A80 50%, #06244A 100%);
 }
 
 /* TODO: Replace .tournament-bg with a real Heritage Isles golf course image */
 .tournament-bg {
   background:
-    radial-gradient(ellipse at 20% 80%, rgba(47, 97, 69, 0.7) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(26, 74, 128, 0.7) 0%, transparent 50%),
     radial-gradient(ellipse at 80% 20%, rgba(168, 125, 46, 0.4) 0%, transparent 45%),
-    linear-gradient(160deg, #0A1F15 0%, #1B3D2C 50%, #0F2A1E 100%);
+    linear-gradient(160deg, #000A19 0%, #00132A 50%, #001F42 100%);
 }
 
 /* TODO: Replace .hat-placeholder-bg with a real product photo */
 .hat-placeholder-bg {
   background:
-    radial-gradient(circle at 50% 60%, rgba(27, 61, 44, 0.15) 0%, transparent 60%),
+    radial-gradient(circle at 50% 60%, rgba(0, 19, 42, 0.15) 0%, transparent 60%),
     linear-gradient(180deg, #F5F0E8 0%, #EAE1D0 100%);
 }
 
@@ -145,7 +144,7 @@
 }
 .carousel-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 20px 56px rgba(27, 61, 44, 0.18);
+  box-shadow: 0 20px 56px rgba(0, 19, 42, 0.18);
 }
 
 /* "View" overlay + image scale on hover */
@@ -171,7 +170,7 @@
 .rt-input {
   width: 100%;
   padding: 0.6875rem 1rem;
-  border: 1.5px solid rgba(27, 61, 44, 0.16);
+  border: 1.5px solid rgba(0, 19, 42, 0.16);
   border-radius: 0.5rem;
   font-family: var(--font-sans);
   font-size: 0.875rem;
@@ -181,8 +180,8 @@
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 .rt-input:focus {
-  border-color: #1B3D2C;
-  box-shadow: 0 0 0 3px rgba(27, 61, 44, 0.10);
+  border-color: #00132A;
+  box-shadow: 0 0 0 3px rgba(0, 19, 42, 0.10);
 }
 .rt-input::placeholder { color: #9B9B9B; }
 .rt-input.error { border-color: #dc2626; }
@@ -190,7 +189,7 @@
 .rt-select {
   width: 100%;
   padding: 0.6875rem 2.5rem 0.6875rem 1rem;
-  border: 1.5px solid rgba(27, 61, 44, 0.16);
+  border: 1.5px solid rgba(0, 19, 42, 0.16);
   border-radius: 0.5rem;
   font-family: var(--font-sans);
   font-size: 0.875rem;
@@ -202,8 +201,8 @@
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 .rt-select:focus {
-  border-color: #1B3D2C;
-  box-shadow: 0 0 0 3px rgba(27, 61, 44, 0.10);
+  border-color: #00132A;
+  box-shadow: 0 0 0 3px rgba(0, 19, 42, 0.10);
 }
 
 .rt-label {
@@ -259,7 +258,7 @@
   background: linear-gradient(
     to right,
     transparent 0%,
-    rgba(27, 61, 44, 0.10) 50%,
+    rgba(0, 19, 42, 0.10) 50%,
     transparent 100%
   );
   transform: translateX(-110%);
@@ -431,8 +430,8 @@
   border-radius: 50%;
   background: radial-gradient(
     ellipse at center,
-    rgba(27, 61, 44, 0.50) 0%,
-    rgba(27, 61, 44, 0.18) 42%,
+    rgba(0, 19, 42, 0.50) 0%,
+    rgba(0, 19, 42, 0.18) 42%,
     transparent 68%
   );
   filter: blur(20px);
@@ -506,5 +505,60 @@
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #1B3D2C;
+  color: #00132A;
+}
+
+/* ── Shiny gold button ──
+   Metallic rather than flat: a multi-stop gradient across the face for the
+   bevel, inset highlight/shadow lines for the edges, and a specular band that
+   sweeps across every few seconds. Owns ::after — don't combine with btn-sweep. */
+.btn-gold-shiny {
+  position: relative;
+  overflow: hidden;
+  /* Keeps the sheen from repainting the backdrop-blurred header every frame (scroll flicker). */
+  contain: paint;
+  transition: filter 0.2s ease, transform 0.2s ease;
+  background-image: linear-gradient(
+    135deg,
+    #8A6420 0%,
+    #C9A04A 18%,
+    #F2DCA4 38%,
+    #DDB870 54%,
+    #A87D2E 74%,
+    #8A6420 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 246, 214, 0.60),
+    inset 0 -1px 0 rgba(88, 60, 14, 0.40),
+    0 2px 10px rgba(120, 88, 26, 0.30);
+  text-shadow: 0 1px 0 rgba(255, 246, 214, 0.45);
+}
+.btn-gold-shiny::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -60%;
+  bottom: -60%;
+  width: 38%;
+  background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.55) 50%, transparent 100%);
+  transform: translateX(-260%) rotate(18deg);
+  animation: gold-sheen 4.5s ease-in-out infinite;
+  pointer-events: none;
+  will-change: transform;
+}
+/* Idle for most of the cycle, then one quick pass. */
+@keyframes gold-sheen {
+  0%, 62% { transform: translateX(-260%) rotate(18deg); }
+  100%    { transform: translateX(460%)  rotate(18deg); }
+}
+.btn-gold-shiny:hover { filter: brightness(1.08); }
+@media (prefers-reduced-motion: reduce) {
+  .btn-gold-shiny::after { animation: none; opacity: 0; }
+}
+
+/* ── Anchor offset ── nav links scroll sections under the fixed header
+   (h-16 / lg:h-20), so every anchor target clears it. */
+section[id], footer[id] { scroll-margin-top: 4rem; }
+@media (min-width: 1024px) {
+  section[id], footer[id] { scroll-margin-top: 5rem; }
 }

@@ -61,7 +61,7 @@ export default function InquiryModal({ open, onClose }: InquiryModalProps) {
       {/* Backdrop */}
       <div
         className="absolute inset-0 cursor-pointer"
-        style={{ backgroundColor: 'rgba(10,31,21,0.55)', backdropFilter: 'blur(4px)' }}
+        style={{ backgroundColor: 'rgba(0,10,25,0.55)' }}
         onClick={onClose}
         aria-hidden="true"
       />
@@ -75,7 +75,7 @@ export default function InquiryModal({ open, onClose }: InquiryModalProps) {
         {/* Header */}
         <div
           className="flex-shrink-0 flex items-center justify-between px-6 py-5 border-b"
-          style={{ borderColor: 'rgba(27,61,44,0.10)', backgroundColor: '#FFFFFF' }}
+          style={{ borderColor: 'rgba(0,19,42,0.10)', backgroundColor: '#FFFFFF' }}
         >
           <div>
             <h2

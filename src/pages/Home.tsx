@@ -9,31 +9,27 @@ import SponsorSection from '@/components/sections/SponsorSection';
 import HatSection     from '@/components/sections/HatSection';
 import InquiryModal      from '@/components/modals/InquiryModal';
 import SponsorModal      from '@/components/modals/SponsorModal';
-import TournamentModal   from '@/components/modals/TournamentModal';
-import RegistrationModal from '@/components/modals/RegistrationModal';
+import TourWaitlistModal from '@/components/modals/TourWaitlistModal';
 
 export default function Home() {
   const [inquiryOpen,    setInquiryOpen]    = useState(false);
   const [sponsorOpen,    setSponsorOpen]    = useState(false);
   const [sponsorFormId,  setSponsorFormId]  = useState('');
-  const [tournamentOpen, setTournamentOpen] = useState(false);
-  const [registerOpen,   setRegisterOpen]   = useState(false);
+  const [waitlistOpen,   setWaitlistOpen]   = useState(false);
 
   const openInquiry    = () => setInquiryOpen(true);
   const openSponsor    = (formId: string) => { setSponsorFormId(formId); setSponsorOpen(true); };
-  const openTournament = () => setTournamentOpen(true);
-  const openRegister   = () => setRegisterOpen(true);
 
   return (
     <>
-      <Header onOpenInquiry={openInquiry} />
+      <Header onOpenInquiry={openInquiry} onOpenTour={() => setWaitlistOpen(true)} />
 
       <main>
-        <HeroSection     onOpenInquiry={openInquiry} />
+        <HeroSection     onOpenInquiry={openInquiry} onOpenTour={() => setWaitlistOpen(true)} />
         <ArtworkCarousel onOpenInquiry={openInquiry} />
-        <AboutSection    />
-        <TournamentSection onOpenDetails={openTournament} onOpenRegister={openRegister} />
+        <TournamentSection onOpenTour={() => setWaitlistOpen(true)} />
         <SponsorSection  onOpenSponsor={openSponsor} />
+        <AboutSection    />
         <HatSection      />
       </main>
 
@@ -41,8 +37,7 @@ export default function Home() {
 
       <InquiryModal      open={inquiryOpen}    onClose={() => setInquiryOpen(false)}    />
       <SponsorModal      open={sponsorOpen}    onClose={() => setSponsorOpen(false)}    formId={sponsorFormId} />
-      <TournamentModal   open={tournamentOpen} onClose={() => setTournamentOpen(false)} onRegister={() => { setTournamentOpen(false); setRegisterOpen(true); }} />
-      <RegistrationModal open={registerOpen}   onClose={() => setRegisterOpen(false)}   />
+      <TourWaitlistModal open={waitlistOpen}   onClose={() => setWaitlistOpen(false)}   />
     </>
   );
 }
