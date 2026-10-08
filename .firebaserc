@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "retees-golf-tour-development",
+    "dev": "retees-golf-tour-development",
+    "prod": "retees-golf-tour-production"
+  }
+}
